@@ -1,18 +1,35 @@
 import express from "express";
 import cors from "cors";
 import dotenv from 'dotenv';
-dotenv.config()
+import { Pool } from 'pg';
 
-app.use(cors({ origin: "http://127.0.0.1:5500"}));
+dotenv.config()
 const app = express();
+app.use(cors({ origin: "http://127.0.0.1:5500"}));
+
+const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        require: true,
+      },
+});
+
+
 
 app.get("/", (req, res) => {  
 res.send("Accueil");
 });
 
-app.get("/menu", (req, res) => {    
-const data = { "plate": "Hello World Burger", "description": "Un cheeseburger classique (pain, steak, fromage, salade, sauce).","image": "🍔"  };     
-res.json(data);
-});
+
+app.get("/benevoles", async (req, res) => {
+    try {
+        const response = await pool.query("SELECT * FROM benevoles")
+        res.json(response.rows)
+    } catch (error) {
+        console.log("erreur", error)
+    }
+    
+})
+
 
 app.listen(3000, () => {  console.log("Serveur lancé sur http://localhost:3000");});
