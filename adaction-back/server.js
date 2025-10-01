@@ -63,13 +63,16 @@ app.patch("/benevoles", async (req, res) => {
 
 app.delete("/benevoles", async (req, res) => {
   try {
+
+    const {user_id} = req.body 
+    
     const query = `DELETE FROM benevoles WHERE id= $1`;
 
-    const values = ["2"];
 
-    const result = await pool.query(query, values);
 
-    res.status(201).json(result.rows[0]);
+    const result = await pool.query(query, [user_id]);
+
+    res.status(200).json({message:"good"});
   } catch (error) {
     console.error("erreur POST /benevoles:", error);
     res.status(500).json({ error: "Erreur serveur" });
