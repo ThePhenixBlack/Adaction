@@ -30,12 +30,15 @@ app.get("/benevoles", async (req, res) => {
 
 app.post("/benevoles", async (req, res) => {
   try {
+
+    const {firstname,lastname,city,password} = req.body 
+
     const query = `
         INSERT INTO benevoles (firstname, lastname, city, password)
         VALUES ($1, $2, $3, $4) RETURNING *
       `;
-    const values = ["Meyko", "DelaRue", "Disney", "134"];
-    const result = await pool.query(query, values);
+   
+    const result = await pool.query(query, [firstname,lastname,city,password]);
 
     res.status(201).json(result.rows[0]);
   } catch (error) {
