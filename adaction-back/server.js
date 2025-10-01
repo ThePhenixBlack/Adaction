@@ -1,34 +1,55 @@
 import express from "express";
 import cors from "cors";
 import dotenv from 'dotenv';
-dotenv.config()
+import { Pool } from 'pg';
 
-app.use(cors({ origin: "http://127.0.0.1:5500"}));
+dotenv.config()
 const app = express();
+app.use(express.json())
+app.use(cors({ origin: "http://127.0.0.1:5500"}));
+
+const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        require: true,
+      },
+});
+
+
 
 app.get("/", (req, res) => {  
 res.send("Accueil");
 });
 
-app.get("/menu", (req, res) => {    
-const data = { "plate": "Hello World Burger", "description": "Un cheeseburger classique (pain, steak, fromage, salade, sauce).","image": "🍔"  };     
-res.json(data);
-});
 
-require("dotenv").config();
+app.get("/benevoles", async (req, res) => {
+    try {
+        const response = await pool.query("SELECT * FROM benevoles")
+        res.json(response.rows)
+    } catch (error) {
+        console.log("erreur", error)
+    }
+    
+})
 
-const http = require("http");
-const { neon } = require("@neondatabase/serverless");
+//
 
-const sql = neon(process.env.DATABASE_URL);
 
-const requestHandler = async (req, res) => {
-  const result = await sql`SELECT version()`;
-  const { version } = result[0];
-  res.writeHead(200, { "Content-Type": "text/plain" });
-  res.end(version);
-};
+app.post("/benevoles", async (req, res) => {
+    try {
+      const query = `
+        INSERT INTO benevoles (firstname, lastname, city, password)
+        VALUES ($1, $2, $3, $4) RETRURNING *
+      `;
+      const values = ["nourdine", "ali", "nanterre", "1234"];
+      const result = await pool.query(query, values);
+  
+      res.status(201).json(result.rows[0]); 
+    } catch (error) {
+      console.error("erreur POST /benevoles:", error);
+      res.status(500).json({ error: "Erreur serveur" });
+    }
+  });
+//
 
-http.createServer(requestHandler).listen(3000, () => {
-  console.log("Server running at http://localhost:3000");
-});
+app.listen(3000, () => {  console.log("Serveur lancé sur http://localhost:3000");});
