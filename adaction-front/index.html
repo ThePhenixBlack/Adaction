@@ -3,9 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="/adaction-front/scripts/index.js"></script>
+    <title>Adaction</title>
 </head>
 <body>
-    
+    <header>
+        <h1>Bienvenue chez Adaction</h1>
+    </header>
+    <section>
+        <div id="btn-container">
+            <button id="btn-new-volunteer">Devenir bénévole</button>
+            <button id="btn-connect">S'identifier</button>
+        </div>
+    </section>
+    <section>
+        <form style="display: none;" id="formCreateVolunteers">
+                <input id="create-firstname" placeholder="Nom" type="text" minlength="2" required>
+                <input id="create-lastname" placeholder="Prenom" type="text" minlength="2" required>
+                <input id="create-city" placeholder="ville" type="text" minlength="2" required>
+                <input id="create-password" placeholder="Password" type="password" minlength="8" required>
+                <button type="submit" onclick="validateVolunteers()"> Valider la création</button>
+        </form>
+    </section>
+    <footer>
+    </footer>
 </body>
 </html>
