@@ -228,4 +228,4 @@ async function fetchModified(volunteer) {
   } catch (e) {
     console.error("❌ Erreur modification :", e);
   }
-}
+} 

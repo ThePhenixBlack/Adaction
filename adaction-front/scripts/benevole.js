@@ -27,8 +27,8 @@ async function profilVolunteer() {
   document.querySelector("#btn-modification").addEventListener("click", () => {
     
   })
+ 
 
 
 
-
-//   Ajouter en bas les fetch back et les élements dynamiques des collectes
+//  Ajouter en bas les fetch back et les élements dynamiques des collectes

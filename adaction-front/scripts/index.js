@@ -38,7 +38,7 @@ async function validateVolunteers(){
         if (!resp.ok) throw new Error(resp.error);
 
         const data = await resp.json();  
-
+ 
          } 
         catch (e) 
         {    
