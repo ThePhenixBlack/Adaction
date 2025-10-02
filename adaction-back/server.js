@@ -47,19 +47,23 @@ app.post("/benevoles", async (req, res) => {
   }
 });
 
-app.patch("/benevoles", async (req, res) => {
+app.patch("/benevoles/:id", async (req, res) => {
   try {
-    const query = `UPDATE benevoles 
-      SET city = $1 
-      where id = $2 `;
+    const { id } = req.params;
+    const { firstname, lastname, city, password } = req.body;
 
-    const values = ["Marseille", "2"];
+    const query = `
+      UPDATE benevoles 
+      SET firstname = $1, lastname = $2, city = $3, password = $4
+      WHERE id = $5
+      RETURNING *;
+    `;
 
-    const result = await pool.query(query, values);
+    const result = await pool.query(query, [firstname, lastname, city, password, id]);
 
-    res.status(201).json(result.rows[0]);
+    res.status(200).json(result.rows[0]);
   } catch (error) {
-    console.error("erreur POST /benevoles:", error);
+    console.error("erreur PATCH /benevoles/:id:", error);
     res.status(500).json({ error: "Erreur serveur" });
   }
 });
