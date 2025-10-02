@@ -79,10 +79,11 @@ async function fetchDelete(element){
 
         const data = await resp.json();  
 
-        alert(`✅ ${data.message}`);  } 
+        // alert(`✅ ${data.message}`);  
+        } 
         catch (e) 
         {    
-        alert("❌ Impossible d'envoyer la commande.");    
+        // alert("❌ Impossible d'envoyer la commande.");    
         console.log('Error :', e);  }
 }
 
