@@ -1,0 +1,34 @@
+const form = document.querySelector("form")
+
+
+form.addEventListener("submit", async (e) => {
+    e.preventDefault()
+
+    const firstname = document.querySelector("#firstname-input").value.trim()
+    const password = document.querySelector("#password-input").value
+
+    try {    
+        const resp = await fetch("http://localhost:3000/login", {      
+            method: "POST",      
+            headers: { "Content-Type": "application/json" },      
+            body: JSON.stringify({
+            firstname: firstname,
+            password: password
+        }),    
+            });
+            console.log('resp',resp)
+
+        const data = await resp.json()
+        console.log("data reçu du back:", data);  
+
+        if (!resp.ok) {
+            // data.error vient du back si 400/401/500
+            throw new Error(data.error || "Connexion impossible");
+          }
+
+         window.location.href =`benevole.html?id=${encodeURIComponent(data.userId)}`
+         } 
+        catch (e) 
+        {     
+        console.log('Error :', e);  }
+})

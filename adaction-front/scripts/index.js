@@ -44,4 +44,5 @@ async function validateVolunteers(){
         {    
         // alert("❌ Impossible de créer le bénévole");    
         console.log('Error :', e);  }
+   
 }
