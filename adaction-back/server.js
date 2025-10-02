@@ -12,7 +12,7 @@ app.use(cors({ origin: "http://127.0.0.1:5500" }));
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
-    require: true,
+   rejectUnauthorized: false,
   },
 });
 
@@ -20,6 +20,7 @@ app.get("/", (req, res) => {
   res.send("Accueil");
 });
 
+// Récupérer les bénévoles
 app.get("/benevoles", async (req, res) => {
   try {
     const response = await pool.query("SELECT * FROM benevoles");
@@ -29,6 +30,7 @@ app.get("/benevoles", async (req, res) => {
   }
 });
 
+// Ajouter des bénévoles
 app.post("/benevoles", async (req, res) => {
   try {
 
@@ -48,7 +50,8 @@ app.post("/benevoles", async (req, res) => {
   }
 });
 
-app.patch("/benevoles/:id", async (req, res) => {
+// Mise à jour de bénévoles
+app.patch("/benevoles", async (req, res) => {
   try {
     const { id } = req.params;
     const { firstname, lastname, city, password } = req.body;
@@ -69,6 +72,57 @@ app.patch("/benevoles/:id", async (req, res) => {
   }
 });
 
+// Récupérer les collectes
+app.get("/collectes", async (req, res) => {
+  try {
+    const response = await pool.query("SELECT * FROM collectes");
+    res.json(response.rows);
+  } catch (error) {
+    console.log("erreur", error);
+  }
+});
+
+
+// Ajouter des collectes 
+app.post("/collectes", async (req, res) => {
+  try {
+
+    const {ville,benevole_id,name,quantity, } = req.body 
+
+    const query = `
+        INSERT INTO collectes (ville,benevole_id,name,quantity)
+        VALUES ($1, $2, $3, $4) RETURNING *
+      `;
+
+    const result = await pool.query(query,[ville, benevole_id, name, quantity]);
+
+    res.status(201).json(result.rows[0]);
+  } catch (error) {
+    console.error("erreur POST /collectes:", error);
+    res.status(500).json({ error: "Erreur serveur" });
+  }
+  });
+
+  // Mise à jour de collectes
+  app.patch("/collectes", async (req, res) => {
+  try {
+    const query = `UPDATE collectes
+      SET ville = $1, benevole_id = $2, name = $3, quantity = $4
+      WHERE id = $5 RETURNING *`;
+
+    const values = [req.body.ville, req.body.benevole_id, req.body.name, req.body.quantity, req.body.id];
+
+    const result = await pool.query(query, values);
+
+    res.status(201).json(result.rows[0]);
+  } catch (error) {
+    console.error("erreur POST /collectes:", error);
+    res.status(500).json({ error: "Erreur serveur" });
+  }
+});
+
+
+// Suppression de bénévoles
 app.delete("/benevoles", async (req, res) => {
   try {
 
