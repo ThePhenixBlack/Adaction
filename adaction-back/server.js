@@ -8,6 +8,7 @@ const app = express();
 app.use(express.json());
 app.use(cors({ origin: "http://127.0.0.1:5500" }));
 
+
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
@@ -85,6 +86,53 @@ app.delete("/benevoles", async (req, res) => {
     res.status(500).json({ error: "Erreur serveur" });
   }
 });
+
+
+app.get("/benevoles/:id", async (req,res)=> {
+  try {
+    const {id} = req.params
+    const {rows} = await pool.query(
+      "SELECT id, firstname, city FROM benevoles WHERE id= $1",
+      [id]
+    )
+    res.json(rows[0]);   
+  } catch (error) {
+    console.error("GET /benevoles/:id error:", error);
+    res.status(500).json({ error: "Erreur serveur" });
+  }
+})
+
+
+// authentification
+app.post("/login", async (req, res) => {
+  try {
+    const { firstname, password } = req.body;
+    if (!firstname || !password) {
+      return res.status(400).json({ error: "Champs manquants" });
+    }
+
+    const query = `
+      SELECT id, firstname 
+      FROM benevoles 
+      WHERE firstname = $1 AND password = $2
+      LIMIT 1
+    `;
+    const { rows } = await pool.query(query, [firstname, password]);
+
+    if (rows.length === 0) {
+      return res.status(401).json({ error: "Identifiants invalides" });
+    }
+
+    // OK: on renvoie l'id (et le firstname si tu veux l'afficher)
+    res.json({ ok: true, userId: rows[0].id, firstname: rows[0].firstname });
+  } catch (err) {
+    console.error("erreur POST /login:", err);
+    res.status(500).json({ error: "Erreur serveur" });
+  }
+});
+
+
+
 
 app.listen(3000, () => {
   console.log("Serveur lancé sur http://localhost:3000");
