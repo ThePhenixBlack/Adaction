@@ -14,10 +14,41 @@
         <p>Votre ID : <span id="uid"></span></p>
         <p>Ville<span id="city-span"></span></p>
         <button id="btn-modification">Modifier mes informations</button>
-        <a id="logout" href="/adaction-front/pages/login.html">Se déconnecter</button>
+        <a id="logout" href="/adaction-front/pages/login.html">Se déconnecter</a>
     </header>
     <section>
-        <!-- Ajouter ici les infos collectes -->
+        <!-- <h1>Adaction</h1> logo ? -->
+        <h2>Mes collectes</h2>
+        <form>
+            <label for="date">Collecte du jour:</label>
+            <input type="date" id="date" name="date">
+            <label for="location">Localisation:</label>
+            <select id="location" name="location">
+                <option value="location1">Lieu 1</option>
+                <option value="location2">Lieu 2</option>
+                <option value="location3">Lieu 3</option>
+            </select>
+        
+        <div id = "trash">
+            <label for="trash-type">Type de déchet:</label>
+            <select id="trash-type" name="trash-type">
+                <option value="Plastique">Plastique</option>
+                <option value="Papier">Papier</option>
+                <option value="Verre">Verre</option>
+                <option value="Métal">Métal</option>
+                <option value="Autre">Autre</option>
+            </select>
+            <label for="other-trash">déchet :</label>
+             <input type="text" id="other-trash" name="other-trash" placeholder="Nom du déchet">
+            <label for="quantity">Quantité:</label>
+            <input type="number" id="quantity" name="quantity" placeholder="0" min="0" step="1">
+            <button type="button" id="add-trash-button">Ajouter</button>
+            <ul id="trash-list"></ul>
+            <div id="total-quantity">Quantité totale: 0</div>
+           <button type="button" id="submit-button">Valider</button>
+        </div>
+    </form>  
+
     </section>
     <footer>
 <!--   -->
