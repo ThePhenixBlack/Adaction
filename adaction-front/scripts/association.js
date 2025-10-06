@@ -31,9 +31,14 @@ async function searchVolunteers() {
 }
 
 
+
+
 function dynamic(element) {
   const volunteers = document.createElement("div");
   divContainer.appendChild(volunteers);
+
+  const idVolunteers = document.createElement("h2")
+  idVolunteers.textContent = `#${element.id}`
 
   const firstnameVolunteers = document.createElement("h3");
   firstnameVolunteers.textContent = element.firstname;
@@ -60,6 +65,21 @@ function dynamic(element) {
   const modifiedVolunteers = document.createElement("button");
   modifiedVolunteers.textContent = "Modifier";
   modifiedVolunteers.classList.add("modifiedButton");
+
+
+  const btnShowCollect = document.createElement("button")
+  btnShowCollect.textContent = "Voir les collectes"
+  btnShowCollect.type = "button"
+
+
+
+  btnShowCollect.addEventListener("click", () =>{
+    collectesId(element, volunteers)
+  })
+
+
+
+
 
   // bouton supprimer
   deleteVolunteers.addEventListener("click", async () => {
@@ -137,6 +157,7 @@ function dynamic(element) {
 
   // Ajouter les éléments du bénévole
   volunteers.append(
+    idVolunteers,
     firstnameVolunteers,
     lastnameVolunteers,
     cityVolunteers,
@@ -144,7 +165,8 @@ function dynamic(element) {
     pointVolunteers,
     creationDateVolunteers,
     deleteVolunteers,
-    modifiedVolunteers
+    modifiedVolunteers,
+    btnShowCollect
   );
 }
 
@@ -229,3 +251,60 @@ async function fetchModified(volunteer) {
     console.error("❌ Erreur modification :", e);
   }
 } 
+
+
+
+const collectesAll = async () => {
+  try {
+    const resp = await fetch(`http://localhost3000:/collectes/`)
+  } catch (error) {
+    
+  }
+}
+
+
+
+const collectesId = async (benevole, parentEl) => {
+  try {
+    const response = await fetch(`http://localhost:3000/collectes/${benevole.id}`);
+    if (!response.ok) throw new Error("Réponse non OK");
+
+    const collectes = await response.json();
+
+    // Nettoie l'ancienne liste
+    const old = parentEl.querySelector("ul.collectes");
+    if (old) old.remove();
+
+    // Crée la nouvelle liste sous CE bénévole
+    const list = document.createElement("ul");
+    list.className = "collectes";
+    parentEl.appendChild(list);
+
+    if (collectes.length === 0) {
+      const li = document.createElement("li");
+      li.textContent = "Aucune collecte pour ce bénévole";
+      list.appendChild(li);
+      return;
+    }
+
+    collectes.forEach(item => {
+      const li = document.createElement("li");
+      const id = item.id ?? item.collecte_id ?? "—";
+      const city = item.city ?? "—";
+      const megots = item.megots ?? 0;        
+      const goblets = item.goblets ?? 0;
+      const cannettes = item.canettes ?? 0;
+      const filets = item.filets ?? 0;
+      const preservatifs = item.preservatifs ?? 0;
+      const sacs = item.sacs ?? 0;
+
+      li.textContent =
+        `#${id} • ${city} • mégots:${megots} • gobelets:${goblets} • cannettes:${cannettes} • filets:${filets} • préservatifs:${preservatifs} • sacs:${sacs}`;
+      list.appendChild(li);
+    });
+
+    console.log("✅ Liste de collectes rendue sous le bénévole", benevole.id);
+  } catch (error) {
+    console.log("erreur chargement collectes", error);
+  }
+};
