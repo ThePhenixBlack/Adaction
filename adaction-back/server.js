@@ -51,7 +51,7 @@ app.post("/benevoles", async (req, res) => {
 });
 
 // Mise à jour de bénévoles
-app.patch("/benevoles", async (req, res) => {
+app.patch("/benevoles/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { firstname, lastname, city, password } = req.body;
@@ -72,6 +72,67 @@ app.patch("/benevoles", async (req, res) => {
   }
 });
 
+
+// //ajoute les collectes d'un bénévole
+// app.get("/benevoles/:id/collectes", async (req, res) => {
+//   try {
+//     const { id } = req.params; // id bnvl
+//     const { rows } = await pool.query(
+//       // "SELECT * FROM collectes WHERE benevole_id = $1 ORDER BY id DESC",
+//       // [id]
+//       `SELECT
+//       collecte_id,
+//       lieu,
+//       benevole_id,
+//       label,
+//       date_collecte,
+//       quantity
+//       FROM collectes
+//       WHERE benevole_id = $1
+//       order BY collecte_id DESC
+//       `
+//     );
+//     res.json(rows);
+//   } catch (error) {
+//     console.error("GET /benevoles/:id/collectes error:", error);
+//     res.status(500).json({ error: "Erreur serveur" });
+//   }
+// });
+
+
+app.get("/benevoles/:id/collectes", async (req, res) => {
+  try {
+    const { id } = req.params; // id du bénévole
+
+    const sql = `
+      SELECT
+        c.collecte_id,
+        c.date_collecte,
+        c.lieu,
+        dt.label,           -- nom du déchet
+        ci.quantite         -- quantité
+      FROM collectes c
+      JOIN collecte_items ci   ON ci.collecte_id = c.collecte_id
+      JOIN dechet_types dt     ON dt.dechet_type_id = ci.dechet_type_id
+      WHERE c.benevole_id = $1
+      ORDER BY c.date_collecte DESC, c.collecte_id DESC, dt.label;
+    `;
+
+    const { rows } = await pool.query(sql, [id]); 
+    res.json(rows);
+  } catch (error) {
+    console.error("GET /benevoles/:id/collectes error:", error);
+    res.status(500).json({ error: "Erreur serveur" });
+  }
+});
+
+
+
+
+
+
+
+
 // Récupérer les collectes
 app.get("/collectes", async (req, res) => {
   try {
@@ -82,12 +143,12 @@ app.get("/collectes", async (req, res) => {
   }
 });
 
-app.get("collectes/:id", async (req,res)=>{
+app.get("/collectes/:id", async (req,res)=>{
   try {
-    const {id} = req.body
+    // const {id} = req.body
     const {rows} = await pool.query(
-      "SELECT id, ville, benevole_id, name, quantity FROM collectes WHERE id= $1",
-      [id]
+      "SELECT * FROM collectes WHERE collectes.benevole_id = $1",
+      [75]
     )
     res.json(rows[0]);
   } catch (error) {
@@ -101,14 +162,17 @@ app.get("collectes/:id", async (req,res)=>{
 app.post("/collectes", async (req, res) => {
   try {
 
-    const {ville,benevole_id,name,quantity, } = req.body 
+    //  const {benevole_id,city,megots,goblets,cannettes,filets,preservatifs,sacs} = req.body 
 
     const query = `
-        INSERT INTO collectes (ville,benevole_id,name,quantity)
-        VALUES ($1, $2, $3, $4) RETURNING *
+         INSERT INTO collectes (benevole_id,city,megots,goblets,canettes,filets,preservatifs,sacs)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *
       `;
 
-    const result = await pool.query(query,[ville, benevole_id, name, quantity]);
+
+    // const params = [benevole_id, city, megots, goblets, cannettes, filets, preservatifs, sacs];
+
+    const result = await pool.query(query,["75","paris", "1", "2", "3", "1", "2", "3"]);
 
     res.status(201).json(result.rows[0]);
   } catch (error) {
