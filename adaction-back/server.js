@@ -50,6 +50,23 @@ app.post("/benevoles", async (req, res) => {
   }
 });
 
+
+app.get("/collectes/:id", async (req,res)=>{
+  try {
+    const id = Number(req.params.id)
+    const {rows} = await pool.query(
+      "SELECT * FROM collectes WHERE collectes.benevole_id = $1",[id]
+  )
+
+    return res.json(rows)
+    // res.json(rows[0]);
+  } catch (error) {
+    console.error("GET /collectes/:id error:", error);
+    res.status(500).json({ error: "Erreur serveur" });
+  }
+})
+
+
 // Mise à jour de bénévoles
 app.patch("/benevoles/:id", async (req, res) => {
   try {
@@ -143,19 +160,7 @@ app.get("/collectes", async (req, res) => {
   }
 });
 
-app.get("/collectes/:id", async (req,res)=>{
-  try {
-    // const {id} = req.body
-    const {rows} = await pool.query(
-      "SELECT * FROM collectes WHERE collectes.benevole_id = $1",
-      [75]
-    )
-    res.json(rows[0]);
-  } catch (error) {
-    console.error("GET /collectes/:id error:", error);
-    res.status(500).json({ error: "Erreur serveur" });
-  }
-})
+
 
 
 // Ajouter des collectes 
