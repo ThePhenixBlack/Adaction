@@ -48,3 +48,17 @@ async function validateVolunteers(){
 
         // 
 }
+
+
+
+const collectesAll = async () => {
+    try {
+      const resp = await fetch(`http://localhost:/collectes`)
+      const collectes = await resp.json()
+        
+    } catch (error) {
+      console.log("erreur", error)
+    }
+  }
+
+

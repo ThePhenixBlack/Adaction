@@ -22,7 +22,7 @@ form.addEventListener("submit", async (e) => {
         console.log("data reçu du back:", data);  
  
         if (!resp.ok) {
-            // data.error vient du back si 400/401/500
+            //  vient du back si 400/401/500
             throw new Error(data.error || "Connexion impossible");
           }
 
