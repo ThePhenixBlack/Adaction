@@ -167,17 +167,22 @@ app.get("/collectes", async (req, res) => {
 app.post("/collectes", async (req, res) => {
   try {
 
-     const {benevole_id,city,megots,goblets,cannettes,filets,preservatifs,sacs} = req.body 
-
+     const {benevole_id,city,megots,gobelets,canettes,filets,preservatifs,sacs} = req.body 
+     console.log(req.body)
     const query = `
-         INSERT INTO collectes (benevole_id,city,megots,goblets,canettes,filets,preservatifs,sacs)
+         INSERT INTO collectes (benevole_id,city,megots,gobelets,canettes,filets,preservatifs,sacs)
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *
       `;
 
 
-     const params = [benevole_id, city, megots, goblets, cannettes, filets, preservatifs, sacs];
+    const params = [benevole_id, city, megots, gobelets, canettes, filets, preservatifs, sacs];
 
-    const result = await pool.query(query,params);
+     const result = await pool.query(query,params);
+    // const result = await pool.query(query,[]);
+
+    //  const result = await pool.query(query, [70, "ada" , 10, 20, 30, 40, 50, 60]);
+
+    //  res.status(201).json(result.rows[0]);
 
     res.status(201).json(result.rows[0]);
   } catch (error) {
