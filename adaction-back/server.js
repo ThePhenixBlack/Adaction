@@ -167,7 +167,7 @@ app.get("/collectes", async (req, res) => {
 app.post("/collectes", async (req, res) => {
   try {
 
-    //  const {benevole_id,city,megots,goblets,cannettes,filets,preservatifs,sacs} = req.body 
+     const {benevole_id,city,megots,goblets,cannettes,filets,preservatifs,sacs} = req.body 
 
     const query = `
          INSERT INTO collectes (benevole_id,city,megots,goblets,canettes,filets,preservatifs,sacs)
@@ -175,9 +175,9 @@ app.post("/collectes", async (req, res) => {
       `;
 
 
-    // const params = [benevole_id, city, megots, goblets, cannettes, filets, preservatifs, sacs];
+     const params = [benevole_id, city, megots, goblets, cannettes, filets, preservatifs, sacs];
 
-    const result = await pool.query(query,["75","paris", "1", "2", "3", "1", "2", "3"]);
+    const result = await pool.query(query,params);
 
     res.status(201).json(result.rows[0]);
   } catch (error) {
