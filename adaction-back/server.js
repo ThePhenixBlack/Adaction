@@ -213,8 +213,6 @@ app.delete("/benevoles", async (req, res) => {
     
     const query = `DELETE FROM benevoles WHERE id= $1`;
 
-
-
     const result = await pool.query(query, [user_id]);
 
     res.status(200).json({message:"good"});

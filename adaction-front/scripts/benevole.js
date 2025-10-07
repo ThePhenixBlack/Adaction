@@ -30,85 +30,85 @@ async function profilVolunteer() {
  
 
 //  Ajouter en bas les fetch back et les élements dynamiques des collectes
-const addTrashButton = document.getElementById("add-trash-button");
+
+
+ // Initialisation de la date du jour
+const dateInput = document.getElementById("date");
+const today = new Date().toISOString().split("T")[0];
+dateInput.value = today;
+dateInput.min = today;
+dateInput.max = today;
+
+const validateButton = document.getElementById("validate-button");
 const trashList = document.getElementById("trash-list");
 const totalQuantityDiv = document.getElementById("total-quantity");
-const submitButton = document.getElementById("submit-button");
-const trashType = document.getElementById("trash-type");
-const quantityInput = document.getElementById("quantity");
-const otherTrashInput = document.getElementById("other-trash"); // ajouté pour éviter la ReferenceError
 
-let totalQuantity = 0;
+validateButton.addEventListener("click", async () => {
+  trashList.innerHTML = "";
+  let total = 0;
 
-addTrashButton.addEventListener("click", () => {
-  const type = trashType.value; // récupère le type sélectionné
-  const nom = otherTrashInput.value.trim(); // récupère le nom précisé
-  const quantity = quantityInput.value;
-
-  let trashName = type;
-  if (nom !== "") {
-    trashName += ` (${nom})`; // concatène avec parenthèses
-  }
-
-  const trashAdd = document.createElement("li");
-  trashAdd.textContent = `${trashName} ${quantityInput.value}`;
-  trashList.appendChild(trashAdd);
-
-  totalQuantity += parseInt(quantityInput.value, 10);
-  totalQuantityDiv.textContent = `Quantité totale: ${totalQuantity}`;
-
-  quantityInput.value = '';
-  otherTrashInput.value = '';
-});
-
-submitButton.addEventListener("click", async () => {
-  const date = document.getElementById("date").value;
+  const date = dateInput.value;
   const location = document.getElementById("location").value;
-  const trashes = [];
-  const trashItems = document.querySelectorAll("#trash-list li");
-  
-  if (!date || !location || trashItems.length === 0) {
-    alert("Veuillez remplir la date, le lieu et ajouter au moins un déchet.");
+  const selectedTrash = document.querySelectorAll('input[name="trash-type"]:checked');
+
+  if (!date || !location || selectedTrash.length === 0) {
+    alert("Veuillez remplir tous les champs correctement.");
     return;
   }
 
-  trashItems.forEach(li => {
-    const [name, quantity] = li.textContent.split(" ");
-    trashes.push({ name, quantity: parseInt(quantity, 10) });
+  const trashItems = [];
+  selectedTrash.forEach(trash => {
+    const trashName = trash.value;
+    const quantityInput = document.getElementById(`quantity-${trashName}`);
+    const quantity = parseInt(quantityInput.value, 10) || 0;
+
+    if (quantity <= 0) {
+      alert("Veuillez entrer une quantité valide pour tous les déchets cochés.");
+      return;
+    }
+
+    // Ajouter à la liste affichée
+    const li = document.createElement("li");
+    li.textContent = `${trashName}: - ${quantity}`;
+    li.dataset.name = trashName;
+    li.dataset.quantity = quantity;
+    trashList.appendChild(li);
+
+    total += quantity;
+    trashItems.push({ name: trashName, quantity });
   });
 
-  const benevole_id = id 
+  totalQuantityDiv.textContent = `Quantité totale: ${total}`;
 
-  for (const li of trashItems) {
-    const [name, quantity] = li.textContent.split(" ");
+  // Réinitialiser les cases cochées et champs quantité
+  selectedTrash.forEach(trash => trash.checked = false);
+  selectedTrash.forEach(trash => {
+    const quantityInput = document.getElementById(`quantity-${trash.value}`);
+    quantityInput.value = "";
+  });
+
+  const benevole_id = id; 
+  for (const item of trashItems) {
     try {
       const response = await fetch("http://localhost:3000/collectes", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          ville: location,
+          city: location,
           date: date,
           benevole_id: benevole_id,
-          name: name,
-          quantity: parseInt(quantity, 10)
-        }),
+          name: item.name,
+          quantity: item.quantity
+        })
       });
-
       if (!response.ok) {
         throw new Error("Erreur lors de l'envoi des données");
       }
-
       const result = await response.json();
       console.log("Collecte ajoutée avec succès :", result);
-
     } catch (error) {
-      console.log("erreur", error);
+      console.error("Erreur:", error);
     }
   }
-});
-
-//   On va devoir créer une tables trashes, parce que un bénévole qui a plusieur déchets dans 
-//  le back ça le met dans plusieurs ligne et non pas 
-//  dans la meme ligne sachant que c'est plusieurs collectes récup le meme jour
+})
+            
