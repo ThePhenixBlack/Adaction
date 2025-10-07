@@ -24,28 +24,42 @@
             <input type="date" id="date" name="date">
             <label for="location">Localisation:</label>
             <select id="location" name="location">
+                <option value="">-- Sélectionnez un lieu </option>
                 <option value="location1">Lieu 1</option>
                 <option value="location2">Lieu 2</option>
                 <option value="location3">Lieu 3</option>
             </select>
         
-        <div id = "trash">
+    
             <label for="trash-type">Type de déchet:</label>
-            <select id="trash-type" name="trash-type">
-                <option value="Plastique">Plastique</option>
-                <option value="Papier">Papier</option>
-                <option value="Verre">Verre</option>
-                <option value="Métal">Métal</option>
-                <option value="Autre">Autre</option>
-            </select>
-            <label for="other-trash">déchet :</label>
-             <input type="text" id="other-trash" name="other-trash" placeholder="Nom du déchet">
-            <label for="quantity">Quantité:</label>
-            <input type="number" id="quantity" name="quantity" placeholder="0" min="0" step="1">
-            <button type="button" id="add-trash-button">Ajouter</button>
-            <ul id="trash-list"></ul>
+            <div id="trash-type" name="trash-type">
+                <input type="checkbox" id="megots" name="trash-type" value="megots">
+                <label for="megots">🚬</label>
+                <input type="number" id="quantity-megots" name="quantity" placeholder="0" min="0" step="1">
+
+                <input type="checkbox" id="goblets" name="trash-type" value="goblets">
+                <label for="goblets">🥤</label>
+                <input type="number" id="quantity-goblets" name="quantity" placeholder="0" min="0" step="1">
+
+                <input type="checkbox" id="canettes" name="trash-type" value="canettes">
+                <label for="canettes">🧋</label>
+                <input type="number" id="quantity-canettes" name="quantity" placeholder="0" min="0" step="1">
+
+                <input type="checkbox" id="preservatifs" name="trash-type" value="preservatifs">
+                <label for="preservatifs">🤷🏽‍♀️</label>
+                <input type="number" id="quantity-preservatifs" name="quantity" placeholder="0" min="0" step="1">
+
+                <input type="checkbox" id="sacs" name="trash-type" value="sacs">
+                <label for="sacs">🛍️</label>
+                <input type="number" id="quantity-sacs" name="quantity" placeholder="0" min="0" step="1">
+            </div>
+            
+            <!-- <label for="other-trash">déchet :</label>
+             <input type="text" id="other-trash" name="other-trash" placeholder="Nom du déchet"> -->
+           
             <div id="total-quantity">Quantité totale: 0</div>
-           <button type="button" id="submit-button">Valider</button>
+
+           <button type="button" id="validate-button">Valider</button>
         </div>
     </form>  
 
