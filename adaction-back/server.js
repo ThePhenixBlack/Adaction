@@ -232,7 +232,7 @@ app.get("/benevoles/:id", async (req,res)=> {
   try {
     const {id} = req.params
     const {rows} = await pool.query(
-      "SELECT id, firstname, city FROM benevoles WHERE id= $1",
+      "SELECT id, firstname,lastname, city FROM benevoles WHERE id= $1",
       [id]
     )
     res.json(rows[0]);   
@@ -270,8 +270,6 @@ app.post("/login", async (req, res) => {
     res.status(500).json({ error: "Erreur serveur" });
   }
 });
-
-//commentaire
 
 
 app.listen(3000, () => {

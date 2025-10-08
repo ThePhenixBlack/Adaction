@@ -1,3 +1,4 @@
+let currentVolunteer = null;
 const params = new URLSearchParams(location.search)
 const id = params.get("id")
 if (!id) window.location.href = "login.html"
@@ -5,22 +6,47 @@ if (!id) window.location.href = "login.html"
 
 
 async function profilVolunteer() {
-    const resp = await fetch(`http://localhost:3000/benevoles/${id}`);
-    if (!resp.ok) {
-      alert("Utilisateur introuvable");
-      location.href = "login.html";
-      return;
-    }
-    const data = await resp.json();
-        showProfil(data)
+  const resp = await fetch(`http://localhost:3000/benevoles/${id}`);
+  if (!resp.ok) {
+    alert("Utilisateur introuvable");
+    location.href = "login.html";
+    return;
   }
+  const data = await resp.json();
+  currentVolunteer = data; // ✅ stocker les données globalement
+  showProfil(data);
+}
   profilVolunteer();
 
+ async function totalVolunteers() {
+  const resp = await fetch(`http://localhost:3000/collectes/${id}`);
+  const data = await resp.json();
 
+  let total = 0;
+
+  data.forEach(element => {
+    total +=
+      Number(element.megots) +
+      Number(element.gobelets) +
+      Number(element.canettes) +
+      Number(element.filets) +
+      Number(element.preservatifs) +
+      Number(element.sacs);
+  });
+  return total;
+}
+
+async function afficherTotal() {
+  const total = await totalVolunteers(); // on attend le résultat
+  const totalDiv = document.getElementById("totalDechets-span");
+  totalDiv.textContent = `${total}`;
+}
+afficherTotal()
   const showProfil = (data) => {
     document.getElementById("firstname-span").textContent = `: ${data.firstname}`
     document.getElementById("uid").textContent = `${data.id}`
     document.getElementById("city-span").textContent=` ${data.city}`
+    
   }
 
 // 
@@ -229,8 +255,13 @@ const collectesId = async (benevole_id) => {
     }
   
     collectes.forEach(item => {
+      const dateISO = "2025-10-08T06:06:07.663Z";
+      const date = new Date(dateISO);
+      const onlyDate = date.toLocaleDateString("fr-FR", { timeZone: "Europe/Paris" });
+      // Juste la date en format français
+     
       const li = document.createElement("li");
-      const id = item.id ?? item.collecte_id ?? "—";
+      // const date = item.date ??"—";
       const city = item.city ?? "—";
       const megots = item.megots ?? 0;             
       const goblets = item.goblets ?? 0;
@@ -240,7 +271,7 @@ const collectesId = async (benevole_id) => {
       const sacs = item.sacs ?? 0;
   
       li.textContent =
-        `#${id} • ${city} • mégots:${megots} • gobelets:${goblets} • canettes:${canettes} • filets:${filets} • préservatifs:${preservatifs} • sacs:${sacs}`;
+        `${onlyDate} • ${city} • mégots:${megots} • gobelets:${goblets} • canettes:${canettes} • filets:${filets} • préservatifs:${preservatifs} • sacs:${sacs}`;
       list.appendChild(li);
     });
   
@@ -248,3 +279,84 @@ const collectesId = async (benevole_id) => {
 
 
   collectesId(id)
+document.getElementById("btn-modification").addEventListener("click", () => {
+  if (!currentVolunteer) return alert("Aucune donnée du profil chargée");
+
+  const oldForm = document.getElementById("formUpdateVolunteers");
+  if (oldForm) oldForm.remove();
+
+  const form = document.createElement("form");
+  form.id = "formUpdateVolunteers";
+
+  const inputFirstname = document.createElement("input");
+  inputFirstname.type = "text";
+  inputFirstname.required = true;
+  inputFirstname.value = currentVolunteer.firstname;
+  form.appendChild(inputFirstname);
+
+  const inputLastname = document.createElement("input");
+inputLastname.type = "text";
+inputLastname.required = true;
+inputLastname.value = currentVolunteer.lastname ?? ""; // <-- attention ici
+form.appendChild(inputLastname);
+
+  const inputCity = document.createElement("input");
+  inputCity.type = "text";
+  inputCity.required = true;
+  inputCity.value = currentVolunteer.city;
+  form.appendChild(inputCity);
+
+  const inputPassword = document.createElement("input");
+  inputPassword.type = "password";
+  inputPassword.required = true;
+  inputPassword.value = currentVolunteer.password;
+  form.appendChild(inputPassword);
+
+  const button = document.createElement("button");
+  button.type = "submit";
+  button.textContent = "Mettre à jour";
+  form.appendChild(button);
+
+  // 🔄 Listener sur le submit
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const updatedData = {
+      id: currentVolunteer.id,
+      firstname: inputFirstname.value.trim(),
+      lastname: inputLastname.value.trim(),
+      city: inputCity.value.trim(),
+      password: inputPassword.value.trim(),
+    };
+
+    await fetchModified(updatedData);
+
+    form.remove(); // on enlève le formulaire après la mise à jour
+    profilVolunteer(); // recharge le profil mis à jour
+  });
+
+  document.querySelector("header").appendChild(form);
+});
+async function fetchModified(volunteer) {
+  try {
+    const resp = await fetch(`http://localhost:3000/benevoles/${volunteer.id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        firstname: volunteer.firstname,
+        lastname: volunteer.lastname,
+        city: volunteer.city,
+        password: volunteer.password
+      }),
+      
+    });
+    console.log(resp);
+
+    if (!resp.ok) throw new Error(resp.statusText);
+
+    const data = await resp.json();
+    console.log("✅ Bénévole modifié :", data);
+  } catch (e) {
+    console.error("❌ Erreur modification :", e);
+  }
+} 
