@@ -4,21 +4,6 @@ body{
 }
 
 
-
-
-  /* Responsive : si l’écran est étroit, on passe sur deux lignes */
-  @media (max-width: 700px){
-    .site-header{
-      flex-wrap:wrap;
-      gap:.5rem 1rem;
-    }
-    .actions{
-      width:100%;
-      justify-content:flex-end;   /* reste à droite */
-      flex-wrap:wrap;
-    }
-  }
-
 /* Conteneur du header */
 .site-header{
     display:flex;                 
@@ -171,20 +156,6 @@ body{
   #formCreateVolunteers button[type="submit"]:active{
     transform:translateY(1px);
   }
-  
-
-  @media (min-width:700px){
-    #formCreateVolunteers{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:12px;
-    }
-    #formCreateVolunteers #create-city,
-    #formCreateVolunteers input#create-password,
-    #formCreateVolunteers button[type="submit"]{
-      grid-column:1 / -1;
-    }
-  }
 
 #formCreateVolunteers .has-error input{ border-color:#dc2626; }
 #formCreateVolunteers .error-text{ margin-top:-.5rem; color:#dc2626; font-size:.875rem; }
@@ -282,22 +253,7 @@ body{
 
 
 
-
-
-
-
 /*  --------------- FOOOTER  ----------- */
-/* 
-  footer{
-    display: grid;
-    grid-row-start: 1fr 1fr 1fr;
-    grid-column-start: 1fr 1fr 1fr;
-    list-style-type: none;
-    padding: 1.5rem 3rem;
-    background-color: #16588c;
-    color: white;
-    margin-top: 2rem;
-} */
 
 
 footer, .footer-container{
@@ -358,13 +314,6 @@ footer, .footer-container{
 #contact-footer{
     grid-column: 3;
 }
-
-
-
-
-
-
-
 
 
 
@@ -807,6 +756,49 @@ form:has(#searchButton){
   :root{ --nav-h: 64px; }
 
   /* ===== Mobile: header en bas, 3 petits boutons, footer caché ===== */
+  
+  
+
+/* 1) Page bénévole : layout qui colle le footer en bas */
+html, body { height: 100%; }
+
+body.page-benevole{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;    
+}
+
+/* ton contenu central */
+body.page-benevole > main{
+  flex: 1 0 auto;
+  min-height: 0;
+}
+
+
+body.page-benevole footer{
+  position: static !important;
+  width: 100%;
+  /* garde (ou retire) l'espace au-dessus selon ton goût */
+  margin-top: 2rem;
+}
+
+
+
+
+  /* Responsive : si l’écran est étroit, on passe sur deux lignes */
+  @media (max-width: 700px){
+    .site-header{
+      flex-wrap:wrap;
+      gap:.5rem 1rem;
+    }
+    .actions{
+      width:100%;
+      justify-content:flex-end;   /* reste à droite */
+      flex-wrap:wrap;
+    }
+  }
+
+
   @media (max-width:750px){
     body{
       padding-bottom: calc(var(--nav-h) + env(safe-area-inset-bottom, 0px));
@@ -849,43 +841,17 @@ form:has(#searchButton){
     footer{ display: none !important; }
   }
   
-  /* ===== Desktop: header en haut (sticky), footer visible ===== */
-  @media (min-width:641px){
-    body{ padding-bottom: 0; }
-  
-    header.site-header{
-      position: sticky;
-      top: 0;
-      height: auto;
-      border-bottom: 1px solid #e6e6e6;
-      padding: 2rem; /* ta valeur desktop */
+
+
+  @media (min-width:700px){
+    #formCreateVolunteers{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
     }
-  
-    .site-header .brand{ display: flex; }
-    .site-header .brand h1{ display: inline; }
-  
-    .site-header .actions .btn{
-      flex: 0 0 auto;
-      padding: .6rem 1rem;
-      font-size: 1rem;
-      border-radius: .75rem;
+    #formCreateVolunteers #create-city,
+    #formCreateVolunteers input#create-password,
+    #formCreateVolunteers button[type="submit"]{
+      grid-column:1 / -1;
     }
-  
-    footer{ display: grid; }
   }
-  
-
-  /* Sticky footer global (hors page login) */
-html, body { height: 100%; }
-
-/* body:not(.login){
-  min-height: 100vh;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-} */
-
-/* sécurité : éviter qu'un overflow bloque la grille */
-main{ min-height: 0; min-width: 0; }
-
-/* le footer prend bien toute la largeur et pas de marge qui le “décolle” */
-footer{ width: 100%; margin-top: 0; }
