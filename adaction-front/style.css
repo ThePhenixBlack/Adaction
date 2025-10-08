@@ -739,6 +739,10 @@ form:has(#searchButton){
     opacity: .85;
     font-size: .9rem;
   }
+
+  .erreur{
+    color: red;
+  }
   
 
 
