@@ -878,11 +878,11 @@ form:has(#searchButton){
   /* Sticky footer global (hors page login) */
 html, body { height: 100%; }
 
-body:not(.login){
+/* body:not(.login){
   min-height: 100vh;
   display: grid;
-  grid-template-rows: auto 1fr auto; /* header | contenu | footer */
-}
+  grid-template-rows: auto 1fr auto;
+} */
 
 /* sécurité : éviter qu'un overflow bloque la grille */
 main{ min-height: 0; min-width: 0; }
