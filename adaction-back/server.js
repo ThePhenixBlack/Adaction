@@ -230,17 +230,17 @@ app.delete("/benevoles", async (req, res) => {
 
 app.get("/benevoles/:id", async (req,res)=> {
   try {
-    const {id} = req.params
+    const {id} = req.params;
     const {rows} = await pool.query(
-      "SELECT id, firstname,lastname, city FROM benevoles WHERE id= $1",
+      "SELECT id, firstname, lastname, city, password FROM benevoles WHERE id= $1",
       [id]
-    )
+    );
     res.json(rows[0]);   
   } catch (error) {
     console.error("GET /benevoles/:id error:", error);
     res.status(500).json({ error: "Erreur serveur" });
   }
-})
+});
 
 
 // authentification
