@@ -69,10 +69,11 @@ newCollecte.addEventListener("click", () => {
   form.style.display = form.style.display === "none" ? "block" : "none";
   document.getElementById("collectes-container").style.display = form.style.display === "none" ? "block" : "none";
   console.log(form.style.display)
+
 })
 
 
-
+// document.getElementById("collecte-form").reset()
 document.getElementById("collecte-form").addEventListener("submit",(e) =>{
   e.preventDefault();
 const megots = document.getElementById("quantity-megots").value
@@ -83,15 +84,22 @@ const canettes = document.getElementById("quantity-canettes").value
 const filets = document.getElementById("quantity-filets").value
 const preservatifs = document.getElementById("quantity-preservatifs").value
 const sacs = document.getElementById("quantity-sacs").value
-
+const form = document.getElementById("collecte-form");
+const container = document.getElementById("collectes-container");
 
 console.log(megots, lieu, benevole_id, gobelets, canettes, filets, preservatifs, sacs)
 
 fetchForm(megots, lieu, benevole_id, gobelets, canettes, filets, preservatifs, sacs)
 
+form.reset();
+
+ form.style.display = "none";
+ container.style.display = "block";
+
 console.log(megots)
  
 })
+
 
  async function fetchForm(megots, lieu, benevole_id, gobelets, canettes, filets, preservatifs, sacs){
 
@@ -115,6 +123,8 @@ console.log(megots)
       }
       const result = await response.json();
       console.log("Collecte ajoutée avec succès :", result);
+      
+
     } catch (error) {
       console.error("Erreur:", error);
     }
