@@ -51,7 +51,7 @@ app.post("/benevoles", async (req, res) => {
 });
 
 // Mise à jour de bénévoles
-app.patch("/benevoles", async (req, res) => {
+app.patch("/benevoles/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { firstname, lastname, city, password } = req.body;
