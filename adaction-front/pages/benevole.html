@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/adaction-front/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <script defer src="/adaction-front/scripts/benevole.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mon profil</title>
@@ -19,36 +20,48 @@
     <section>
         <!-- <h1>Adaction</h1> logo ? -->
         <h2>Mes collectes</h2>
-        <form>
-            <label for="date">Collecte du jour:</label>
-            <input type="date" id="date" name="date">
+        <button id="new-collecte">Nouvelle collecte</button>
+        <div id="collectes-container"></div>
+        <form id="collecte-form" style="display: none;">
+            
+            <label for="">Collecte du jour:</label>
+            
             <label for="location">Localisation:</label>
             <select id="location" name="location">
-                <option value="location1">Lieu 1</option>
-                <option value="location2">Lieu 2</option>
-                <option value="location3">Lieu 3</option>
+                <option value="">-- Sélectionnez un lieu </option>
+                <option value="location1">plage</option>
+                <option value="location2">parc</option>
+                <option value="location3">rue</option>
+                <option value="location4">forêt</option>
+                <option value="location5">montagne</option>
+                <option value="location6">autre</option>
             </select>
         
-        <div id = "trash">
-            <label for="trash-type">Type de déchet:</label>
-            <select id="trash-type" name="trash-type">
-                <option value="Plastique">Plastique</option>
-                <option value="Papier">Papier</option>
-                <option value="Verre">Verre</option>
-                <option value="Métal">Métal</option>
-                <option value="Autre">Autre</option>
-            </select>
-            <label for="other-trash">déchet :</label>
-             <input type="text" id="other-trash" name="other-trash" placeholder="Nom du déchet">
-            <label for="quantity">Quantité:</label>
-            <input type="number" id="quantity" name="quantity" placeholder="0" min="0" step="1">
-            <button type="button" id="add-trash-button">Ajouter</button>
-            <ul id="trash-list"></ul>
-            <div id="total-quantity">Quantité totale: 0</div>
-           <button type="button" id="submit-button">Valider</button>
-        </div>
-    </form>  
+    
+            <label >Type de déchet:</label>
+            <!-- <form style="display: none;"id="trash-type" name="trash-type"> -->
+                <label for="megots">🚬</label>
+                <input type="number" id="quantity-megots" name="quantity" placeholder="0" min="0" step="1">
 
+               
+                <label for="goblets">🥤</label>
+                <input type="number" id="quantity-gobelets" name="quantity" placeholder="0" min="0" step="1">
+
+                <label for="canettes">🧋</label>
+                <input type="number" id="quantity-canettes" name="quantity" placeholder="0" min="0" step="1">
+
+                <label for="filets">🪢</label>
+                <input type="number" id="quantity-filets" name="quantity" placeholder="0" min="0" step="1">
+                <label for="preservatifs">🤷🏽‍♀️</label>
+                <input type="number" id="quantity-preservatifs" name="quantity" placeholder="0" min="0" step="1">
+
+                <label for="sacs"></label>
+                <input type="number" id="quantity-sacs" name="quantity" placeholder="0" min="0" step="1">
+
+
+                <button type="click" id="validate-button">Valider</button>
+       
+    </form>  
     </section>
     <footer>
 <!--   -->

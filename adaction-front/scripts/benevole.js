@@ -29,86 +29,222 @@ async function profilVolunteer() {
   })
  
 
+
+
 //  Ajouter en bas les fetch back et les élements dynamiques des collectes
-const addTrashButton = document.getElementById("add-trash-button");
-const trashList = document.getElementById("trash-list");
-const totalQuantityDiv = document.getElementById("total-quantity");
-const submitButton = document.getElementById("submit-button");
-const trashType = document.getElementById("trash-type");
-const quantityInput = document.getElementById("quantity");
-const otherTrashInput = document.getElementById("other-trash"); // ajouté pour éviter la ReferenceError
 
-let totalQuantity = 0;
+const newCollecte = document.getElementById("new-collecte");
+newCollecte.addEventListener("click", () => {
+  const form = document.getElementById("collecte-form");
+  form.style.display = form.style.display === "none" ? "block" : "none";
+  document.getElementById("collectes-container").style.display = form.style.display === "none" ? "block" : "none";
+  console.log(form.style.display)
+})
 
-addTrashButton.addEventListener("click", () => {
-  const type = trashType.value; // récupère le type sélectionné
-  const nom = otherTrashInput.value.trim(); // récupère le nom précisé
-  const quantity = quantityInput.value;
 
-  let trashName = type;
-  if (nom !== "") {
-    trashName += ` (${nom})`; // concatène avec parenthèses
-  }
 
-  const trashAdd = document.createElement("li");
-  trashAdd.textContent = `${trashName} ${quantityInput.value}`;
-  trashList.appendChild(trashAdd);
+document.getElementById("collecte-form").addEventListener("submit",(e) =>{
+  e.preventDefault();
+const megots = document.getElementById("quantity-megots").value
+const lieu = document.getElementById("location").value
+const benevole_id = id  
+const gobelets = document.getElementById("quantity-gobelets").value
+const canettes = document.getElementById("quantity-canettes").value
+const filets = document.getElementById("quantity-filets").value
+const preservatifs = document.getElementById("quantity-preservatifs").value
+const sacs = document.getElementById("quantity-sacs").value
 
-  totalQuantity += parseInt(quantityInput.value, 10);
-  totalQuantityDiv.textContent = `Quantité totale: ${totalQuantity}`;
 
-  quantityInput.value = '';
-  otherTrashInput.value = '';
-});
+console.log(megots, lieu, benevole_id, gobelets, canettes, filets, preservatifs, sacs)
 
-submitButton.addEventListener("click", async () => {
-  const date = document.getElementById("date").value;
-  const location = document.getElementById("location").value;
-  const trashes = [];
-  const trashItems = document.querySelectorAll("#trash-list li");
-  
-  if (!date || !location || trashItems.length === 0) {
-    alert("Veuillez remplir la date, le lieu et ajouter au moins un déchet.");
-    return;
-  }
+fetchForm(megots, lieu, benevole_id, gobelets, canettes, filets, preservatifs, sacs)
 
-  trashItems.forEach(li => {
-    const [name, quantity] = li.textContent.split(" ");
-    trashes.push({ name, quantity: parseInt(quantity, 10) });
-  });
+console.log(megots)
+ 
+})
 
-  const benevole_id = id 
+ async function fetchForm(megots, lieu, benevole_id, gobelets, canettes, filets, preservatifs, sacs){
 
-  for (const li of trashItems) {
-    const [name, quantity] = li.textContent.split(" ");
-    try {
+   try {
       const response = await fetch("http://localhost:3000/collectes", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          ville: location,
-          date: date,
-          benevole_id: benevole_id,
-          name: name,
-          quantity: parseInt(quantity, 10)
-        }),
+          benevole_id: Number(benevole_id),
+          city: lieu,
+          megots: Number(megots),
+          gobelets: Number(gobelets),
+          canettes: Number(canettes),
+          filets: Number(filets),
+          preservatifs: Number(preservatifs),
+          sacs: Number(sacs)
+        })
       });
-
       if (!response.ok) {
         throw new Error("Erreur lors de l'envoi des données");
       }
-
       const result = await response.json();
       console.log("Collecte ajoutée avec succès :", result);
-
     } catch (error) {
-      console.log("erreur", error);
+      console.error("Erreur:", error);
     }
   }
-});
 
-//   On va devoir créer une tables trashes, parce que un bénévole qui a plusieur déchets dans 
-//  le back ça le met dans plusieurs ligne et non pas 
-//  dans la meme ligne sachant que c'est plusieurs collectes récup le meme jour
+
+
+
+
+
+
+
+
+
+//  async function fetchForm(){
+
+//    try {
+//       const response = await fetch("http://localhost:3000/collectes", {
+//         method: "POST",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify({
+//           city: location,
+//           benevole_id: benevole_id,
+//           name: ,
+//           quantity: quantity
+//         })
+//       });
+//       if (!response.ok) {
+//         throw new Error("Erreur lors de l'envoi des données");
+//       }
+//       const result = await response.json();
+//       console.log("Collecte ajoutée avec succès :", result);
+//     } catch (error) {
+//       console.error("Erreur:", error);
+//     }
+//   }
+
+
+ 
+
+
+ // Initialisation de la date du jour
+// const dateInput = document.getElementById("date");
+// const today = new Date().toISOString().split("T")[0];
+// dateInput.value = today;
+// dateInput.min = today;
+// dateInput.max = today;
+
+// const validateButton = document.getElementById("validate-button");
+// const trashList = document.getElementById("trash-list");
+// const totalQuantityDiv = document.getElementById("total-quantity");
+
+// validateButton.addEventListener("click", async () => {
+//   trashList.innerHTML = "";
+//   let total = 0;
+
+//   const date = dateInput.value;
+//   const location = document.getElementById("location").value;
+//   const selectedTrash = document.querySelectorAll('input[name="trash-type"]:checked');
+
+//   if (!date || !location || selectedTrash.length === 0) {
+//     alert("Veuillez remplir tous les champs correctement.");
+//     return;
+//   }
+
+//   const trashItems = [];
+//   selectedTrash.forEach(trash => {
+//     const trashName = trash.value;
+//     const quantityInput = document.getElementById(`quantity-${trashName}`);
+//     const quantity = parseInt(quantityInput.value, 10) || 0;
+
+//     if (quantity <= 0) {
+//       alert("Veuillez entrer une quantité valide pour tous les déchets cochés.");
+//       return;
+//     }
+
+//     // Ajouter à la liste affichée
+//     const li = document.createElement("li");
+//     li.textContent = `${trashName}: - ${quantity}`;
+//     li.dataset.name = trashName;
+//     li.dataset.quantity = quantity;
+//     trashList.appendChild(li);
+
+//     total += quantity;
+//     trashItems.push({ name: trashName, quantity });
+//   });
+
+//   totalQuantityDiv.textContent = `Quantité totale: ${total}`;
+
+//   // Réinitialiser les cases cochées et champs quantité
+//   selectedTrash.forEach(trash => trash.checked = false);
+//   selectedTrash.forEach(trash => {
+//     const quantityInput = document.getElementById(`quantity-${trash.value}`);
+//     quantityInput.value = "";
+//   });
+
+  // const benevole_id = id; 
+  // for (const item of trashItems) {
+  //   try {
+  //     const response = await fetch("http://localhost:3000/collectes", {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify({
+  //         city: location,
+  //         date: date,
+  //         benevole_id: benevole_id,
+  //         name: item.name,
+  //         quantity: item.quantity
+  //       })
+  //     });
+  //     if (!response.ok) {
+  //       throw new Error("Erreur lors de l'envoi des données");
+  //     }
+  //     const result = await response.json();
+  //     console.log("Collecte ajoutée avec succès :", result);
+  //   } catch (error) {
+  //     console.error("Erreur:", error);
+  //   }
+  // }
+
+            
+
+
+
+
+
+const collectesId = async (benevole_id) => {
+    const response = await fetch(`http://localhost:3000/collectes/${benevole_id}`);
+    const collectes = await response.json();
+  
+
+  
+    const list = document.createElement("ul");
+    list.className = "collectes"; 
+    document.getElementById("collectes-container").appendChild(list);
+  
+    if (collectes.length === 0) {
+      const li = document.createElement("li");
+      li.textContent = "Aucune collecte pour ce bénévole";
+      list.appendChild(li);
+      return;
+    }
+  
+    collectes.forEach(item => {
+      const li = document.createElement("li");
+      const id = item.id ?? item.collecte_id ?? "—";
+      const city = item.city ?? "—";
+      const megots = item.megots ?? 0;             
+      const goblets = item.goblets ?? 0;
+      const canettes = item.canettes ?? 0;
+      const filets = item.filets ?? 0;
+      const preservatifs = item.preservatifs ?? 0;
+      const sacs = item.sacs ?? 0;
+  
+      li.textContent =
+        `#${id} • ${city} • mégots:${megots} • gobelets:${goblets} • canettes:${canettes} • filets:${filets} • préservatifs:${preservatifs} • sacs:${sacs}`;
+      list.appendChild(li);
+    });
+  
+  };
+
+
+  collectesId(id)
