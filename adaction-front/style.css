@@ -11,3 +11,87 @@ h1{
     color: red;
 }
 /*  */ 
+
+
+body{
+    font-family: "Amatic SC", sans-serif;
+    margin: 0;
+}
+
+
+/* Conteneur du header */
+.site-header{
+    display:flex;                 /* met gauche/droite sur une ligne */
+    align-items:center;           /* aligne verticalement */
+    justify-content:space-between;/* espace entre gauche et droite */
+    gap:1rem;
+    padding:1rem 2rem;
+    border-bottom:1px solid #e6e6e6;
+    background:#16588c; /* ajuste selon ton thème */
+  }
+  
+  /* Groupe logo + titre (gauche) */
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:.75rem;                   /* espace entre le SVG et le H1 */
+  }
+  .brand h1{
+    font-size:clamp(1.1rem, 2.5vw, 1.6rem);
+    margin:0;
+    font-weight:700;
+    color: white;
+  }
+  
+  /* Groupe boutons/liens (droite) */
+  .actions{
+    display:flex;
+    align-items:center;
+    gap:.75rem;                   /* espace entre chaque action */
+  }
+  
+  /* Styles boutons cohérents (button et <a>) */
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:.6rem 1rem;
+    border-radius:.75rem;
+    border:1px solid transparent;
+    text-decoration:none;
+    font-weight:600;
+    line-height:1;
+    cursor:pointer;
+    background:#2c7a4b;           /* vert principal */
+    color:#fff;
+  }
+  .btn:hover{ filter:brightness(0.95); }
+  
+  .btn-outline{
+    background:#fff;
+    color:#2c7a4b;
+    border-color:#2c7a4b;
+  }
+  .btn-outline:hover{
+    background:#f4fbf7;
+  }
+  
+
+
+
+  
+  /* Responsive : si l’écran est étroit, on passe sur deux lignes */
+  @media (max-width: 640px){
+    .site-header{
+      flex-wrap:wrap;
+      gap:.5rem 1rem;
+    }
+    .actions{
+      width:100%;
+      justify-content:flex-end;   /* reste à droite */
+      flex-wrap:wrap;
+    }
+  }
+  
+
+
