@@ -23,6 +23,10 @@ form.addEventListener("submit", async (e) => {
  
         if (!resp.ok) {
             //  vient du back si 400/401/500
+            const erreur = document.createElement("p")
+            erreur.textContent = "Identifiant ou mot de passe invalide"
+            erreur.classList.add("erreur")
+            document.getElementById("erreur").appendChild(erreur)
             throw new Error(data.error || "Connexion impossible");
           }
 

@@ -62,3 +62,27 @@ const collectesAll = async () => {
   }
 
 
+async function totalVolunteers() {
+  const resp = await fetch(`http://localhost:3000/collectes`);
+  const data = await resp.json();
+
+  let total = 0;
+
+  data.forEach(element => {
+    total +=
+      Number(element.megots) +
+      Number(element.gobelets) +
+      Number(element.canettes) +
+      Number(element.filets) +
+      Number(element.preservatifs) +
+      Number(element.sacs);
+  });
+  return total;
+}
+
+async function afficherTotal() {
+  const total = await totalVolunteers(); // on attend le résultat
+  const totalDiv = document.getElementById("totalDechetsAll-span");
+  totalDiv.textContent = `${total}`;
+}
+afficherTotal()
