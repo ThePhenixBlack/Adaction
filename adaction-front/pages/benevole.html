@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/adaction-front/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
     <script defer src="/adaction-front/scripts/benevole.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mon profil</title>
 </head>
+
 <body>
     <header class="site-header">
         <div class="brand">
@@ -63,47 +67,47 @@
     <main>
         <section class="profile-card">
             <div class="profile-header">
-              <div class="avatar" aria-hidden="true">?</div>
-              <div class="profile-info">
-                <p class="greet">Bonjour <span id="firstname-span">—</span></p>
-                <p class="meta"><strong>ID :</strong> <span id="uid">—</span></p>
-                <p class="meta"><strong>Ville :</strong> <span id="city-span">—</span></p>
-                <p> Nombre total de déchets : <span id="totalDechets-span"> </span></p>
-              </div>
+                <div class="avatar" aria-hidden="true">?</div>
+                <div class="profile-info">
+                    <p class="greet">Bonjour <span id="firstname-span">—</span></p>
+                    <p class="meta"><strong>ID :</strong> <span id="uid">—</span></p>
+                    <p class="meta"><strong>Ville :</strong> <span id="city-span">—</span></p>
+                    <p> Nombre total de déchets : <span id="totalDechets-span"> </span></p>
+                </div>
             </div>
             <button id="btn-modification" class="btn">Modifier mes informations</button>
-          </section>
-          
-    <section>
-        <div class="new-collecte">
-        <h2>Mes collectes</h2>
-        <button id="new-collecte" class="btn">Nouvelle collecte</button>
-        </div>
-        <div id="collectes-container">
+        </section>
 
-        </div>
-        <form id="collecte-form" style="display: none;">
-            
-            <label for="">Collecte du jour:</label>
-            
-            <label for="location">Localisation:</label>
-            <select id="location" name="location">
-                <option value="">-- Sélectionnez un lieu </option>
-                <option value="location1">plage</option>
-                <option value="location2">parc</option>
-                <option value="location3">rue</option>
-                <option value="location4">forêt</option>
-                <option value="location5">montagne</option>
-                <option value="location6">autre</option>
-            </select>
-        
-    
-            <label >Type de déchet:</label>
-            <!-- <form style="display: none;"id="trash-type" name="trash-type"> -->
+        <section>
+            <div class="new-collecte">
+                <h2>Mes collectes</h2>
+                <button id="new-collecte" class="btn">Nouvelle collecte</button>
+            </div>
+            <div id="collectes-container">
+
+            </div>
+            <form id="collecte-form" style="display: none;">
+
+                <label for="">Collecte du jour:</label>
+
+                <label for="location">Localisation:</label>
+                <select id="location" name="location">
+                    <option value="">-- Sélectionnez un lieu </option>
+                    <option value="location1">plage</option>
+                    <option value="location2">parc</option>
+                    <option value="location3">rue</option>
+                    <option value="location4">forêt</option>
+                    <option value="location5">montagne</option>
+                    <option value="location6">autre</option>
+                </select>
+
+
+                <label>Type de déchet:</label>
+                <!-- <form style="display: none;"id="trash-type" name="trash-type"> -->
                 <label for="megots">🚬</label>
                 <input type="number" id="quantity-megots" name="quantity" placeholder="0" min="0" step="1">
 
-               
+
                 <label for="goblets">🥤</label>
                 <input type="number" id="quantity-gobelets" name="quantity" placeholder="0" min="0" step="1">
 
@@ -120,68 +124,67 @@
 
 
                 <button type="click" id="validate-button" class="btn">Valider</button>
-       
-    </form>  
-    </section>
-        <footer>
-            <footer class="footer-container">
-                <div id="adaction-footer">
-                    <h2 class="orange">Adaction</h2>
-                    <p>Notre mission est de rendre le monde meilleur<br>
-                        chaque geste compte, rendez le monde meilleur à partir d'aujourd'hui
-                    </p>
-                    <div class="social-media">
-                        <a id="facebook" href="https://www.facebook.com"><svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round"
-                                class="lucide lucide-facebook-icon lucide-facebook">
-                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-                            </svg></a>
-                        <a id="instagram" href="https://www.instagram.com"><svg xmlns="http://www.w3.org/2000/svg"
-                                width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                class="lucide lucide-instagram-icon lucide-instagram">
-                                <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-                            </svg></a>
-    
-                        <a id="linkedin" href="https://www.linkedin.com"><svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round"
-                                class="lucide lucide-linkedin-icon lucide-linkedin">
-                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-                                <rect width="4" height="12" x="2" y="9" />
-                                <circle cx="4" cy="4" r="2" />
-                            </svg></a>
-    
-                        <a id="twitch" href="https://www.twitch.com"><svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round"
-                                class="lucide lucide-twitch-icon lucide-twitch">
-                                <path d="M21 2H3v16h5v4l4-4h5l4-4V2zm-10 9V7m5 4V7" />
-                            </svg></a>
-                    </div>
-                </div>
-                <div id="information-footer">
-                    <h2 class="orange">INFORMATIONS UTILES</h2>
-                    <div class="information-link">
-                        <a href="#">FAQs</a>
-                        <a href="#">Penser à l'environnement</a>
-                        <a href="#">Nous contacter</a>
-                        <a href="#">Mentions légales</a>
-                    </div>
-                </div>
-                <div id="contact-footer">
-                    <h2 class="orange">CONTACT</h2>
-                    <p>
-                        116 Rue du Faubourg Saint-Martin <br>
-                        75010 Paris, France <br>
-                        Email: contact@adaopte.fr <br>
-                        Tél: +33 1 23 45 67 89
-                    </p>
-                </div>
-            </main>
-            </footer>
+
+            </form>
+        </section>
+    </main>
+    <footer class="footer-container">
+        <div id="adaction-footer">
+            <h2 class="orange">Adaction</h2>
+              <p>Notre mission est de rendre le monde meilleur<br>
+                Rejoignez nous !
+            </p>
+            <div class="social-media">
+                <a id="facebook" href="https://www.facebook.com"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                        height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-facebook-icon lucide-facebook">
+                        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                    </svg></a>
+                <a id="instagram" href="https://www.instagram.com"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                        height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-instagram-icon lucide-instagram">
+                        <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                        <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+                    </svg></a>
+
+                <a id="linkedin" href="https://www.linkedin.com"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                        height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-linkedin-icon lucide-linkedin">
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                        <rect width="4" height="12" x="2" y="9" />
+                        <circle cx="4" cy="4" r="2" />
+                    </svg></a>
+
+                <a id="twitch" href="https://www.twitch.com"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                        height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-twitch-icon lucide-twitch">
+                        <path d="M21 2H3v16h5v4l4-4h5l4-4V2zm-10 9V7m5 4V7" />
+                    </svg></a>
+            </div>
+        </div>
+        <div id="information-footer">
+            <h2 class="orange">INFORMATIONS UTILES</h2>
+            <div class="information-link">
+                <a href="#">FAQs</a>
+                <a href="#">Penser à l'environnement</a>
+                <a href="#">Nous contacter</a>
+                <a href="#">Mentions légales</a>
+            </div>
+        </div>
+        <div id="contact-footer">
+            <h2 class="orange">CONTACT</h2>
+            <p>
+                116 Rue du Faubourg Saint-Martin <br>
+                75010 Paris, France <br>
+                Email: contact@adaction.fr <br>
+                Tél: +33 1 23 45 67 89
+            </p>
+        </div>
+    </footer>
 </body>
+
 </html>

@@ -7,7 +7,7 @@ body{
 
 
   /* Responsive : si l’écran est étroit, on passe sur deux lignes */
-  @media (max-width: 640px){
+  @media (max-width: 700px){
     .site-header{
       flex-wrap:wrap;
       gap:.5rem 1rem;
@@ -28,7 +28,11 @@ body{
     padding:2rem 2rem;
     border-bottom:1px solid #e6e6e6;
     background:#16588c; 
+    flex-wrap: wrap;
   }
+
+
+
   
   /* Groupe logo + titre */
   .brand{
@@ -168,38 +172,28 @@ body{
     transform:translateY(1px);
   }
   
-  
 
-  /* Layout 2 colonnes sur écrans larges */
-  @media (min-width: 560px){
+  @media (min-width:700px){
     #formCreateVolunteers{
-      grid-template-columns: 1fr 1fr;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
     }
+    #formCreateVolunteers #create-city,
     #formCreateVolunteers input#create-password,
     #formCreateVolunteers button[type="submit"]{
-      grid-column: 1 / -1; 
+      grid-column:1 / -1;
     }
-    #formCreateVolunteers #create-city{
-        grid-column: 1 / -1;
-  }
-  
-
-  #formCreateVolunteers .has-error input{
-    border-color: #dc2626;
-  }
-  #formCreateVolunteers .error-text{
-    margin-top:-.5rem;
-    color:#dc2626;
-    font-size:.875rem;
   }
 
-  }
-
-
+#formCreateVolunteers .has-error input{ border-color:#dc2626; }
+#formCreateVolunteers .error-text{ margin-top:-.5rem; color:#dc2626; font-size:.875rem; }
 
 
 
 .text h2 {
+    display: flex;
+    margin-top: -2rem;
     font-family: 'Amatic SC', sans-serif;
     font-size: 3.5rem;
     color:#16588c;
@@ -293,7 +287,7 @@ body{
 
 
 /*  --------------- FOOOTER  ----------- */
-
+/* 
   footer{
     display: grid;
     grid-row-start: 1fr 1fr 1fr;
@@ -303,7 +297,21 @@ body{
     background-color: #16588c;
     color: white;
     margin-top: 2rem;
-}
+} */
+
+
+footer, .footer-container{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap:1rem 2rem;
+    padding:1.5rem 3rem;
+    background:#16588c;
+    color:#fff;
+    margin-top:2rem;
+  }
+  #adaopte-footer, #information-footer, #contact-footer{ min-width:0; }
+
+  img{ max-width:100%; height:auto; } /* évite les débordements */
 
 #adaopte-footer{
     grid-column: 1;
@@ -792,3 +800,92 @@ form:has(#searchButton){
   #formUpdateVolunteers button:hover{ filter:brightness(.98); }
   #formUpdateVolunteers button:active{ transform:translateY(1px); }
   
+
+
+
+
+  :root{ --nav-h: 64px; }
+
+  /* ===== Mobile: header en bas, 3 petits boutons, footer caché ===== */
+  @media (max-width:750px){
+    body{
+      padding-bottom: calc(var(--nav-h) + env(safe-area-inset-bottom, 0px));
+    }
+  
+    header.site-header{
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      height: var(--nav-h);
+      z-index: 1000;
+      border-top: 1px solid #e6e6e6;
+      border-bottom: 0;
+      background: #16588c;
+      padding: .5rem .6rem;         /* compact */
+      gap: .5rem;
+      justify-content: center;
+    }
+  
+    /* On masque le bloc brand pour donner toute la place aux actions */
+    .site-header .brand{ display: none; }
+  
+    /* La barre du bas : 3 boutons fluides, petits et lisibles */
+    .site-header .actions{
+      flex: 1 1 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: .4rem;
+    }
+    .site-header .actions .btn{
+      flex: 1 1 0;
+      min-width: 0;
+      padding: .5rem .6rem;
+      font-size: .9rem;
+      line-height: 1;
+      border-radius: .6rem;
+      text-align: center;
+    }
+  
+    footer{ display: none !important; }
+  }
+  
+  /* ===== Desktop: header en haut (sticky), footer visible ===== */
+  @media (min-width:641px){
+    body{ padding-bottom: 0; }
+  
+    header.site-header{
+      position: sticky;
+      top: 0;
+      height: auto;
+      border-bottom: 1px solid #e6e6e6;
+      padding: 2rem; /* ta valeur desktop */
+    }
+  
+    .site-header .brand{ display: flex; }
+    .site-header .brand h1{ display: inline; }
+  
+    .site-header .actions .btn{
+      flex: 0 0 auto;
+      padding: .6rem 1rem;
+      font-size: 1rem;
+      border-radius: .75rem;
+    }
+  
+    footer{ display: grid; }
+  }
+  
+
+  /* Sticky footer global (hors page login) */
+html, body { height: 100%; }
+
+body:not(.login){
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto; /* header | contenu | footer */
+}
+
+/* sécurité : éviter qu'un overflow bloque la grille */
+main{ min-height: 0; min-width: 0; }
+
+/* le footer prend bien toute la largeur et pas de marge qui le “décolle” */
+footer{ width: 100%; margin-top: 0; }
