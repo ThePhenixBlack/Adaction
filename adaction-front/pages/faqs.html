@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ – Adaction</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    main.faq-page{
+      max-width:900px;
+      margin:2rem auto;
+      padding:1rem;
+      background:#fff;
+      border:1px solid #e5e7eb;
+      border-radius:1rem;
+      box-shadow:0 8px 22px rgba(0,0,0,.06);
+    }
+
+    .faq-page h1{
+      text-align:center;
+      color:#16588c;
+      font-size:2.2rem;
+      margin-bottom:1.5rem;
+      font-weight:800;
+    }
+
+    .faq-item{
+      border-bottom:1px solid #e5e7eb;
+      padding:1rem 0;
+      cursor:pointer;
+      transition:background .2s;
+    }
+    .faq-item:hover{
+      background:#f9fafb;
+    }
+
+    .faq-question{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      font-size:1.1rem;
+      font-weight:600;
+      color:#0f172a;
+    }
+
+    .faq-answer{
+      margin-top:.6rem;
+      color:#4b5563;
+      line-height:1.55;
+      font-size:.98rem;
+      display:none;
+    }
+
+    .faq-item.active .faq-answer{
+      display:block;
+      animation:fadeIn .3s ease;
+    }
+
+    .faq-item svg{
+      width:20px;
+      height:20px;
+      flex-shrink:0;
+      transition:transform .25s;
+      color:#2c7a4b;
+    }
+    .faq-item.active svg{
+      transform:rotate(180deg);
+    }
+
+    @keyframes fadeIn{
+      from{opacity:0; transform:translateY(-4px);}
+      to{opacity:1; transform:translateY(0);}
+    }
+
+    @media(max-width:700px){
+      main.faq-page{ margin:1rem; padding:1rem; }
+      .faq-page h1{ font-size:1.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">
+      <img src="/adaction-front/images/logo.png" alt="logo" width="48" height="48">
+      <h1>Adaction</h1>
+    </div>
+    <div class="actions">
+      <a href="index.html" class="btn btn-outline">Accueil</a>
+      <a href="volunteers.html" class="btn">Bénévoles</a>
+      <a href="faqs.html" class="btn btn-outline">FAQ</a>
+    </div>
+  </header>
+
+  <main class="faq-page">
+    <h1>Foire aux Questions</h1>
+
+    <section class="faq-list">
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Comment devenir bénévole ?</span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+          </svg>
+        </div>
+        <div class="faq-answer">
+          Pour devenir bénévole, rends-toi sur la page d’inscription et complète le formulaire avec ton nom, ta ville et ton mot de passe.  
+          Une fois validé, tu pourras participer aux collectes et suivre ton impact directement depuis ton profil.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Comment enregistrer une collecte ?</span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+          </svg>
+        </div>
+        <div class="faq-answer">
+          Connecte-toi à ton espace bénévole, puis clique sur “Nouvelle collecte”.  
+          Indique les quantités de déchets ramassés (mégots, canettes, sacs, etc.) et valide.  
+          Ton action sera enregistrée automatiquement.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Comment modifier mes informations personnelles ?</span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+          </svg>
+        </div>
+        <div class="faq-answer">
+          Sur ta page “Mon profil”, tu peux modifier ton prénom, ton nom, ta ville ou ton mot de passe.  
+          Une fois les changements effectués, clique sur “Enregistrer”.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Où consulter mes statistiques de collecte ?</span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+          </svg>
+        </div>
+        <div class="faq-answer">
+          Depuis ton tableau de bord personnel, tu peux visualiser le total de tes collectes et ton impact environnemental.  
+          Ces données sont mises à jour en temps réel après chaque enregistrement.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Comment contacter l’équipe Adaction ?</span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+          </svg>
+        </div>
+        <div class="faq-answer">
+          Tu peux nous écrire via le formulaire de contact disponible en bas de la page d’accueil,  
+          ou directement à l’adresse suivante : <b>contact@adaction.org</b>.
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <div id="adaopte-footer">
+        <h3>Adaction</h3>
+        <p>Agissons ensemble pour un monde plus propre 🌍</p>
+        <div class="social-media">
+          <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-twitter"></i></a>
+        </div>
+      </div>
+      <div id="information-footer">
+        <h3>Informations</h3>
+        <div class="information-link">
+          <a href="index.html">Accueil</a>
+          <a href="volunteers.html">Bénévoles</a>
+          <a href="faqs.html">FAQ</a>
+        </div>
+      </div>
+      <div id="contact-footer">
+        <h3>Contact</h3>
+        <p>📧 contact@adaction.org</p>
+        <p>📍 3254 route du Vernay, 74920 Combloux</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Animation ouverture/fermeture des FAQ
+    document.querySelectorAll('.faq-item').forEach(item=>{
+      item.addEventListener('click', ()=>{
+        item.classList.toggle('active');
+      });
+    });
+  </script>
+</body>
+</html>
