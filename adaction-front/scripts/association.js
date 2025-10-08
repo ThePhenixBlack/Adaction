@@ -59,12 +59,16 @@ function dynamic(element) {
   const deleteVolunteers = document.createElement("button");
   deleteVolunteers.textContent = "Supprimer";
   deleteVolunteers.classList.add("deleteButton");
+  deleteVolunteers.classList.add("btn");
 
   const modifiedVolunteers = document.createElement("button");
   modifiedVolunteers.textContent = "Modifier";
   modifiedVolunteers.classList.add("modifiedButton");
+  modifiedVolunteers.classList.add("btn");
+
 
   const btnShowCollect = document.createElement("button")
+  btnShowCollect.classList.add("btn");
   btnShowCollect.textContent = "Voir les collectes"
   btnShowCollect.type = "button";  
                
@@ -87,6 +91,7 @@ function dynamic(element) {
 
     // Créer le formulaire
     const form = document.createElement("form");
+
     form.id = "formUpdateVolunteers";
 
     // Champ prénom

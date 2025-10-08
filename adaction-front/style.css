@@ -1,40 +1,40 @@
-.deleteButton{
-    color: red;
-}
-
-h1{
-    color: darkblue;
-}
-
-
-.error{
-    color: red;
-}
-/*  */ 
-
-
 body{
-    font-family: "Amatic SC", sans-serif;
+    font-family: "Roboto", sans-serif;
     margin: 0;
 }
 
 
+
+
+  /* Responsive : si l’écran est étroit, on passe sur deux lignes */
+  @media (max-width: 640px){
+    .site-header{
+      flex-wrap:wrap;
+      gap:.5rem 1rem;
+    }
+    .actions{
+      width:100%;
+      justify-content:flex-end;   /* reste à droite */
+      flex-wrap:wrap;
+    }
+  }
+
 /* Conteneur du header */
 .site-header{
-    display:flex;                 /* met gauche/droite sur une ligne */
-    align-items:center;           /* aligne verticalement */
-    justify-content:space-between;/* espace entre gauche et droite */
+    display:flex;                 
+    align-items:center;           
+    justify-content:space-between;
     gap:1rem;
-    padding:1rem 2rem;
+    padding:2rem 2rem;
     border-bottom:1px solid #e6e6e6;
-    background:#16588c; /* ajuste selon ton thème */
+    background:#16588c; 
   }
   
-  /* Groupe logo + titre (gauche) */
+  /* Groupe logo + titre */
   .brand{
     display:flex;
     align-items:center;
-    gap:.75rem;                   /* espace entre le SVG et le H1 */
+    gap:0.75rem;                   
   }
   .brand h1{
     font-size:clamp(1.1rem, 2.5vw, 1.6rem);
@@ -43,14 +43,14 @@ body{
     color: white;
   }
   
-  /* Groupe boutons/liens (droite) */
+  /* Groupe boutons/liens  */
   .actions{
     display:flex;
     align-items:center;
-    gap:.75rem;                   /* espace entre chaque action */
+    gap:0.75rem;                 
   }
   
-  /* Styles boutons cohérents (button et <a>) */
+  /* Styles boutons  */
   .btn{
     display:inline-flex;
     align-items:center;
@@ -62,7 +62,7 @@ body{
     font-weight:600;
     line-height:1;
     cursor:pointer;
-    background:#2c7a4b;           /* vert principal */
+    background:#2c7a4b;           
     color:#fff;
   }
   .btn:hover{ filter:brightness(0.95); }
@@ -77,21 +77,714 @@ body{
   }
   
 
-
+  main{
+    width: 100%;
+}
 
   
-  /* Responsive : si l’écran est étroit, on passe sur deux lignes */
-  @media (max-width: 640px){
-    .site-header{
-      flex-wrap:wrap;
-      gap:.5rem 1rem;
+/* Carte du formulaire */
+#section-form{
+    display:flex;
+    justify-content:center;
+    padding:5rem 1rem;
+  }
+  
+  #formCreateVolunteers{
+    width:100%;
+    max-width:520px;
+    background:#ffffff;
+    border:1px solid #e5e7eb;
+    border-radius:1rem;
+    padding:3rem;
+    box-shadow:0 6px 24px rgba(0,0,0,.08);
+    margin-top:1rem;
+  }
+  
+  /* Si le JS met display:block en inline, on re-force grid + espaces */
+  #formCreateVolunteers[style*="display: block"]{
+    display:grid !important;
+    gap:12px;         
+  }
+  
+  
+  
+  /* Titre */
+  #formCreateVolunteers h2{ grid-column:1 / -1; }
+
+
+  #formCreateVolunteers h2{
+    font-size:1.5rem;
+    font-weight:700;
+    color:#16588c;
+    text-align:center;
+  }
+  
+  #formCreateVolunteers input{
+    padding:0.85rem;
+    border:1px solid #e5e7eb;
+    border-radius:0.75rem;
+    background:#fff;
+    color:#0f172a;
+    font-size:1rem;
+    transition:border-color .2s, box-shadow .2s, background .2s;
+    outline:none;
+  }
+  
+  #formCreateVolunteers input::placeholder{
+    color:#6b7280;
+  }
+  
+
+  #formCreateVolunteers input:focus{
+    border-color:#2c7a4b;
+    box-shadow:0 0 0 6px #a7f3d0;
+  }
+  
+  /* États natifs */
+  #formCreateVolunteers input:invalid:focus{
+    border-color:#dc2626;
+    box-shadow:0 0 0 6px rgba(220,38,38,.15);
+  }
+  
+  /* Bouton */
+  #formCreateVolunteers button[type="submit"]{
+    appearance:none;
+    border:none;
+    border-radius:.8rem;
+    padding:.9rem 1.1rem;
+    background:#2c7a4b;
+    color:#fff;
+    font-weight:700;
+    font-size:1rem;
+    cursor:pointer;
+    transition:transform .05s, filter .2s, box-shadow .2s;
+    box-shadow:0 8px 20px rgba(44,122,75,.25);
+  }
+  
+  #formCreateVolunteers button[type="submit"]:hover{
+    filter:brightness(.98);
+  }
+  #formCreateVolunteers button[type="submit"]:active{
+    transform:translateY(1px);
+  }
+  
+  
+
+  /* Layout 2 colonnes sur écrans larges */
+  @media (min-width: 560px){
+    #formCreateVolunteers{
+      grid-template-columns: 1fr 1fr;
     }
-    .actions{
-      width:100%;
-      justify-content:flex-end;   /* reste à droite */
-      flex-wrap:wrap;
+    #formCreateVolunteers input#create-password,
+    #formCreateVolunteers button[type="submit"]{
+      grid-column: 1 / -1; 
     }
+    #formCreateVolunteers #create-city{
+        grid-column: 1 / -1;
+  }
+  
+
+  #formCreateVolunteers .has-error input{
+    border-color: #dc2626;
+  }
+  #formCreateVolunteers .error-text{
+    margin-top:-.5rem;
+    color:#dc2626;
+    font-size:.875rem;
+  }
+
+  }
+
+
+
+
+
+.text h2 {
+    font-family: 'Amatic SC', sans-serif;
+    font-size: 3.5rem;
+    color:#16588c;
+}
+
+.text {
+    font-size: 1.5rem;
+    text-align: center;
+    max-width: 43rem;
+    margin: auto;
+    color:#16588c;
+    font-weight: 450;
+    font-family: "Roboto", sans-serif;
+}
+
+
+  #grid-container{
+    margin:  auto;
+    max-width: 90vw;
+}
+
+#photo{
+
+    display: grid;
+    grid-template-columns:  1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 1rem;
+}
+
+#photo figure{
+    margin: 0;
+}
+
+#photo img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0.6rem;
+}
+
+
+#one {
+    grid-column: 1 ;
+    grid-row: span 2;
+}
+
+#two  {
+    grid-column: 2 ;
+}
+
+#three {
+    grid-column: 3;
+    grid-row: span 2;
+
+}
+
+#four{
+    grid-column: 4;
+    grid-row: 1;
+}
+
+#five {
+ grid-column: 1;
+}
+
+#six{
+    grid-column: 2;
+    grid-row: 2/ span 2;
+}
+
+#seven {
+    grid-column: 3;
+}
+
+#eight{
+    grid-column: 4;
+    grid-row: 2/ span 2;
+}
+
+#other-animals {
+    margin: 2rem;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 1rem;
+}
+
+
+
+
+
+
+
+/*  --------------- FOOOTER  ----------- */
+
+  footer{
+    display: grid;
+    grid-row-start: 1fr 1fr 1fr;
+    grid-column-start: 1fr 1fr 1fr;
+    list-style-type: none;
+    padding: 1.5rem 3rem;
+    background-color: #16588c;
+    color: white;
+    margin-top: 2rem;
+}
+
+#adaopte-footer{
+    grid-column: 1;
+}
+
+.social-media{
+    display: flex;
+    gap: 1.5rem;
+}
+
+.social-media a {
+    background-color:#484848 ;
+    display: flex;
+    border-radius: 50%;
+    padding: 0.6rem;
+    cursor: pointer;
+    transition: 0.3s ease;
+    color: white;
+}
+
+.social-media a:hover{
+    background-color: white;
+    transform: translateY(-0.3rem);
+}
+
+#information-footer{
+    grid-column: 2;
+}
+
+.information-link{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+#information-footer a{
+    color: rgb(187, 187, 187);
+}
+
+#information-footer a:hover{
+    color: white;
+}
+
+#contact-footer{
+    grid-column: 3;
+}
+
+
+
+
+
+
+
+
+
+
+/* login  */
+
+
+
+body.login{
+  background:url("/adaction-front/images/background-login.jpg") center/cover no-repeat fixed;
+  margin:0;
+  min-height:100vh;
+  display:grid;
+  grid-template-rows: auto 1fr auto;
+  justify-items: stretch;             
+  align-items: start;    
+}
+
+
+
+
+.login-form{
+  width:min(92vw, 360px);
+  margin:10vh auto;
+  padding:18px 16px;
+  border:1px solid #e5e7eb;
+  border-radius:12px;
+  background:#fff;
+  box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+.login-form > * + *{ 
+    margin-top:12px; 
+}  
+
+.login-form h2{
+  margin:0;
+  font-size:1.25rem;
+  font-weight:800;
+  color:#0f172a;
+  text-align:center;
+}
+
+.login-form input{
+  display:block;
+  width:100%;
+  padding:12px 14px;
+  border:1px solid #e5e7eb;
+  border-radius:10px;
+  background:#fff;
+  font-size:16px;
+  outline:none;
+  box-sizing:border-box;
+}
+.login-form input::placeholder{ color:#6b7280; }
+.login-form input:focus{
+  border-color:#2c7a4b;
+  box-shadow:0 0 0 6px rgba(44,122,75,.15);
+}
+
+.login-form button{
+  width:100%;
+  padding:12px 14px;
+  border:0;
+  border-radius:10px;
+  background:#2c7a4b;
+  color:#fff;
+  font-weight:700;
+  font-size:16px;
+  cursor:pointer;
+  box-shadow:0 8px 20px rgba(44,122,75,.22);
+}
+.login-form button:hover{ filter:brightness(.98); }
+.login-form button:active{ transform:translateY(1px); }
+
+
+
+
+
+/* mon profil */
+
+
+
+:root{ --brand:#2c7a4b; --ink:#0f172a; --muted:#6b7280; --border:#e5e7eb; }
+
+.profile-card{
+  width:min(92vw, 420px);
+  margin:1.25rem auto;
+  padding:16px;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:16px;
+  box-shadow:0 10px 30px rgba(0,0,0,.08);
+  display:grid;
+  gap:12px;
+}
+
+.profile-header{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  align-items:center;
+  gap:12px;
+}
+
+.avatar{
+  width:56px; height:56px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-weight:800;
+  background:#e6f6ee;
+  color:var(--brand);
+  border:1px solid #cbe9d8;
+}
+
+.profile-info .greet{
+  margin:0;
+  font-size:1.1rem;
+  font-weight:700;
+  color:var(--ink);
+}
+.profile-info .meta{
+  margin:.15rem 0 0 0;
+  color:var(--muted);
+  font-size:.95rem;
+}
+
+.profile-card .btn{
+  width:100%;
+  padding:12px 14px;
+  border:0;
+  border-radius:12px;
+  background:var(--brand);
+  color:#fff;
+  font-weight:700;
+  font-size:16px;
+  cursor:pointer;
+  box-shadow:0 8px 20px rgba(44,122,75,.22);
+}
+.profile-card .btn:hover{ filter:brightness(.98); }
+.profile-card .btn:active{ transform:translateY(1px); }
+
+
+
+
+
+
+
+
+/* les collectes */
+.new-collecte{
+    text-align: center;
+}
+
+
+#collectes-container{
+    max-width: 1000px;
+    margin: 1rem auto;
+    padding: 0 .75rem;
+    box-sizing: border-box;
+  }
+
+  ul.collectes{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: .75rem;
+  }
+
+  ul.collectes li{
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-left: 4px solid #2c7a4b; /* petit accent vert */
+    border-radius: .75rem;
+    padding: .75rem .9rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,.06);
+    font-size: .95rem;
+    line-height: 1.35;
+    overflow-wrap: anywhere;  /* évite les débordements */
+  }
+
+
+  ul.collectes li:hover{
+    box-shadow: 0 6px 16px rgba(0,0,0,.08);
+  }
+
+  
+ul.collectes > li:first-child:only-child{
+    text-align: center;
+    opacity: .7;
+    border-left-color: #e5e7eb;
+}
+
+
+
+
+/* formulaire collecte */
+
+
+/* Base */
+*,*::before,*::after{ box-sizing:border-box; }
+
+/* Carte du formulaire */
+#collecte-form{
+  width:min(96vw, 640px);
+  margin:1rem auto;
+  padding:1rem;
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:12px;
+  box-shadow:0 6px 18px rgba(0,0,0,.06);
+}
+
+/* Espacement vertical entre chaque élément, même en display:block */
+#collecte-form > * + *{ margin-top:.75rem; }
+
+/* Labels */
+#collecte-form label{
+  display:block;
+  font-weight:600;
+  color:#0f172a;
+}
+
+/* Champs */
+#collecte-form select,
+#collecte-form input[type="number"]{
+  width:100%;
+  padding:.65rem .8rem;
+  border:1px solid #e5e7eb;
+  border-radius:.65rem;
+  font-size:1rem;
+  background:#fff;
+  outline:none;
+}
+#collecte-form select:focus,
+#collecte-form input[type="number"]:focus{
+  border-color:#2c7a4b;
+  box-shadow:0 0 0 6px rgba(44,122,75,.12);
+}
+
+/* Garder les flèches ± natives */
+#collecte-form input[type="number"]{
+  appearance:auto;
+  -moz-appearance:number-input;
+}
+
+/* Bouton */
+#collecte-form .btn,
+#collecte-form button{
+  width:100%;
+  padding:.75rem .9rem;
+  border:0;
+  border-radius:.65rem;
+  background:#2c7a4b;
+  color:#fff;
+  font-weight:700;
+  cursor:pointer;
+  box-shadow:0 8px 18px rgba(44,122,75,.20);
+}
+#collecte-form .btn:hover,
+#collecte-form button:hover{ filter:brightness(.98); }
+#collecte-form .btn:active,
+#collecte-form button:active{ transform:translateY(1px); }
+
+
+
+
+/* mon association  */
+
+
+.section-create{
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+
+
+/* filtrer nom et ville */
+
+.section-filter{
+margin-top: 2rem;
+}
+form:has(#searchButton){
+    max-width: 900px;
+    margin: 1rem auto;
+    padding: .75rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    background: #fff;
+  
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 0.5rem; 
+    box-sizing: border-box;
+  }
+  
+  /* Champs */
+  form:has(#searchButton) input{
+    width: 100%;
+    padding: .6rem .75rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    box-sizing: border-box;
+  }
+  form:has(#searchButton) input:focus{
+    border-color: #2c7a4b;
+    box-shadow: 0 0 0 6px rgba(44,122,75,.12);
+  }
+  
+  /* Bouton */
+  form:has(#searchButton) button{
+    width: 100%;
+    padding: .65rem .75rem;
+    border: 0;
+    border-radius: 8px;
+    background: #2c7a4b;
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 6px 16px rgba(44,122,75,.18);
+  }
+  form:has(#searchButton) button:hover{ filter: brightness(.98); }
+  form:has(#searchButton) button:active{ transform: translateY(1px); }
+  
+
+
+/* cartes des bénévoles */
+
+/* Conteneur en grille fluide */
+.section-volunteers{
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+  #divContainer{
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0.25rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: .9rem;
+  }
+  
+  /* Carte profil (cible : chaque div ajouté dynamiquement) */
+  #divContainer > div{
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-left: 4px solid #2c7a4b;   /* petit accent */
+    border-radius: 12px;
+    padding: 0.9rem;
+    box-shadow: 0 6px 16px rgba(0,0,0,.06);
+    display: grid;
+    gap: 0.35rem;                      /* espace entre h2/h3/p */
+    align-content: start;
+    overflow-wrap: anywhere;          /* évite les débordements */
+  }
+  
+  /* Typo légère et hiérarchie */
+  #divContainer > div h2{
+    margin: 0 0 .25rem 0;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #111827;
+  }
+  #divContainer > div h3{
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1f2937;
+  }
+  #divContainer > div p{
+    margin: 0;
+    font-size: 0.95rem;
+    color: #4b5563;
+    line-height: 1.35;
+  }
+  
+  /* Option lisibilité des dates (si created_at est long) */
+  #divContainer > div p:last-child{
+    opacity: .85;
+    font-size: .9rem;
   }
   
 
 
+
+
+  /* modifier les infos du benevole */
+
+
+
+  /* Le mini-formulaire qui s'insère dans la carte */
+#formUpdateVolunteers{
+    margin-top:.75rem;
+    padding:.75rem;
+    background:#f9fafb;                 /* léger contraste */
+    border:1px solid #e5e7eb;
+    border-radius:.75rem;
+    display:grid;
+    gap:.5rem;                           /* espace entre champs */
+  }
+  
+  /* Champs */
+  #formUpdateVolunteers input{
+    width:100%;
+    min-width:0;                         /* évite tout débordement */
+    padding:.6rem .75rem;
+    border:1px solid #d1d5db;
+    border-radius:.5rem;
+    font-size:.95rem;
+    outline:none;
+    box-sizing:border-box;
+  }
+  #formUpdateVolunteers input:focus{
+    border-color:#2c7a4b;
+    box-shadow:0 0 0 4px rgba(44,122,75,.12);
+  }
+  
+  /* Bouton */
+  #formUpdateVolunteers button{
+    padding:.6rem .8rem;
+    border:0;
+    border-radius:.6rem;
+    background:#2c7a4b;
+    color:#fff;
+    font-weight:700;
+    cursor:pointer;
+  }
+  #formUpdateVolunteers button:hover{ filter:brightness(.98); }
+  #formUpdateVolunteers button:active{ transform:translateY(1px); }
+  
