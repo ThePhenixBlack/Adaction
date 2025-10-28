@@ -5,7 +5,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Signaler un bénévole – Adaction</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="/style.css" />
+  <script src="/scripts/config.js"></script>
   <style>
     main.report-page {
       max-width: 700px;
@@ -177,7 +178,7 @@
       };
 
       try {
-        const resp = await fetch("http://localhost:3000/reports", {
+  const resp = await fetch(`${window.API_BASE}/reports`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(report),

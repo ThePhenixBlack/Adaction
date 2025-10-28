@@ -10,7 +10,7 @@ const sectionProfilCard = document.querySelector(".profile-card")
 console.log(sectionProfilCard)
 
 async function profilVolunteer() {
-  const resp = await fetch(`http://localhost:3000/benevoles/${id}`);
+  const resp = await fetch(`${window.API_BASE}/benevoles/${id}`);
   if (!resp.ok) {
     alert("Utilisateur introuvable");
     location.href = "login.html";
@@ -23,7 +23,7 @@ async function profilVolunteer() {
   profilVolunteer();
 
  async function totalVolunteers() {
-  const resp = await fetch(`http://localhost:3000/collectes/${id}`);
+  const resp = await fetch(`${window.API_BASE}/collectes/${id}`);
   const data = await resp.json();
 
   let total = 0;
@@ -104,7 +104,7 @@ console.log(megots)
  async function fetchForm(megots, lieu, benevole_id, gobelets, canettes, filets, preservatifs, sacs){
 
    try {
-      const response = await fetch("http://localhost:3000/collectes", {
+  const response = await fetch(`${window.API_BASE}/collectes`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -132,7 +132,7 @@ console.log(megots)
 
 
 const collectesId = async (benevole_id) => {
-    const response = await fetch(`http://localhost:3000/collectes/${benevole_id}`);
+  const response = await fetch(`${window.API_BASE}/collectes/${benevole_id}`);
     const collectes = await response.json();
   
 
@@ -234,7 +234,7 @@ form.appendChild(inputLastname);
 });
 async function fetchModified(volunteer) {
   try {
-    const resp = await fetch(`http://localhost:3000/benevoles/${volunteer.id}`, {
+  const resp = await fetch(`${window.API_BASE}/benevoles/${volunteer.id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

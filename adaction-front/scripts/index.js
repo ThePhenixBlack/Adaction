@@ -24,7 +24,7 @@ async function validateVolunteers(){
     const createCity = document.getElementById("create-city").value.trim()
     const createpassword = document.getElementById("create-password").value.trim()
     try {    
-        const resp = await fetch("http://localhost:3000/benevoles", {      
+  const resp = await fetch(`${window.API_BASE}/benevoles`, {      
             method: "POST",      
             headers: { "Content-Type": "application/json" },      
             body: JSON.stringify({
@@ -53,7 +53,7 @@ async function validateVolunteers(){
 
 const collectesAll = async () => {
     try {
-      const resp = await fetch(`http://localhost:/collectes`)
+  const resp = await fetch(`${window.API_BASE}/collectes`)
       const collectes = await resp.json()
         
     } catch (error) {
@@ -63,7 +63,7 @@ const collectesAll = async () => {
 
 
 async function totalVolunteers() {
-  const resp = await fetch(`http://localhost:3000/collectes`);
+  const resp = await fetch(`${window.API_BASE}/collectes`);
   const data = await resp.json();
 
   let total = 0;

@@ -8,7 +8,7 @@ form.addEventListener("submit", async (e) => {
     const password = document.querySelector("#password-input").value
 
     try {    
-        const resp = await fetch("http://localhost:3000/login", {      
+    const resp = await fetch(`${window.API_BASE}/login`, {      
             method: "POST",      
             headers: { "Content-Type": "application/json" },      
             body: JSON.stringify({

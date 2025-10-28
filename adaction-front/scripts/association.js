@@ -4,7 +4,7 @@ const formCreateVolunteers = document.getElementById("formCreateVolunteers")
 
 async function showVolunteers() {
   try {
-    const response = await fetch("http://localhost:3000/benevoles");
+  const response = await fetch(`${window.API_BASE}/benevoles`);
     const data = await response.json();
 
     data.forEach((element) => {
@@ -20,7 +20,7 @@ async function searchVolunteers() {
   const inputName = document.getElementById("searchName").value;
   const inputCity = document.getElementById("searchCity").value;
 
-  const response = await fetch("http://localhost:3000/benevoles");
+  const response = await fetch(`${window.API_BASE}/benevoles`);
   const data = await response.json();
 
   data.forEach((element) => {
@@ -172,7 +172,7 @@ function dynamic(element) {
 
 async function fetchDelete(element){  
     try {    
-        const resp = await fetch("http://localhost:3000/benevoles", {      
+  const resp = await fetch(`${window.API_BASE}/benevoles`, {      
             method: "DELETE",      
             headers: { "Content-Type": "application/json" },      
             body: JSON.stringify({
@@ -204,7 +204,7 @@ async function validateVolunteers(){
 
 
     try {    
-        const resp = await fetch("http://localhost:3000/benevoles", {      
+  const resp = await fetch(`${window.API_BASE}/benevoles`, {      
             method: "POST",      
             headers: { "Content-Type": "application/json" },      
             body: JSON.stringify({
@@ -230,7 +230,7 @@ async function validateVolunteers(){
 
 async function fetchModified(volunteer) {
   try {
-    const resp = await fetch(`http://localhost:3000/benevoles/${volunteer.id}`, {
+  const resp = await fetch(`${window.API_BASE}/benevoles/${volunteer.id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -253,7 +253,7 @@ async function fetchModified(volunteer) {
 
 
 const collectesId = async (benevole, parentEl) => {
-  const response = await fetch(`http://localhost:3000/collectes/${benevole.id}`);
+  const response = await fetch(`${window.API_BASE}/collectes/${benevole.id}`);
   const collectes = await response.json();
 
   const old = parentEl.querySelector("ul.collectes");
