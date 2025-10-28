@@ -6,7 +6,10 @@ import { Pool } from "pg";
 dotenv.config();
 const app = express();
 app.use(express.json());
-app.use(cors({ origin: "http://127.0.0.1:5500" }));
+// Autoriser dynamiquement l'origine front (ex: déployé sur Vercel)
+// Définir FRONTEND_URL dans les variables d'environnement sur Vercel
+const FRONTEND_URL = process.env.FRONTEND_URL || "http://127.0.0.1:5500";
+app.use(cors({ origin: FRONTEND_URL }));
 
 
 const pool = new Pool({
